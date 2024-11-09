@@ -75,6 +75,7 @@
     let scale = 1.0; // Default scale (no zoom)
     const scaleStep = 0.1; // Scale increment/decrement step
 
+
     const skinId = 1058;
 
     const start = async () => {
@@ -640,6 +641,25 @@
         SWFColorTransparentBlack: 0x00000000,
     };
 
+    function SkipToJustBeforeFrame(animation, frame, renderStates){
+        let frameDataPositions = animation.FrameDataPositions;
+
+        for(let i = 0; i < frame; i++){
+            let dataPosition = frameDataPositions[i];
+
+            for(let j = animation.NodeCount; j >= 0; j--){
+                if(dataPosition >= animation.Data.byteLength){
+                    break;
+                }
+
+                let dataView = new DataView(animation.Data, dataPosition);
+                let nodeNum = dataView.getUint16(0, true);
+                dataPosition += 2;
+
+                dataPosition = renderStates[nodeNum].compute(new Uint8Array(animation.Data), dataPosition);
+            }
+        }
+    }
 
     function computeFrame(animation, frame, renderStates, skinAsset) {
         let nodeCount = animation.NodeCount;
@@ -651,6 +671,13 @@
         triangleIndices = [];
 
         meshes.length = 0;
+
+        for(let i = 0; i < renderStates.length; i++){
+            renderStates[i].Reset();
+        }
+
+        // reset render states
+        SkipToJustBeforeFrame(animation, frame, renderStates);
 
         const frameBounds = new Bounds(Vector2.positiveInfinity(), Vector2.negativeInfinity());
 
@@ -679,7 +706,6 @@
                 nodesCount--;
                 continue;
             }
-
 
             //console.log('rendering', nodeNum, renderState.spriteIndex, part);
             //console.log('renderState', renderState);
