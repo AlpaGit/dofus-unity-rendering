@@ -1,0 +1,6657 @@
+{
+  "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 0
+  },
+  "m_Enabled": 1,
+  "m_Script": {
+    "m_FileID": 0,
+    "m_PathID": 7597624695978151306
+  },
+  "m_Name": "",
+  "m_values": {
+    "Array": [
+      {
+        "name": "1",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 0,
+              "indexCount": 48,
+              "startIndexIndex": 0,
+              "vertexCount": 24,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "11",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 47,
+              "indexCount": 12,
+              "startIndexIndex": 93,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "13",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 53,
+              "indexCount": 21,
+              "startIndexIndex": 105,
+              "vertexCount": 9,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "15",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 62,
+              "indexCount": 18,
+              "startIndexIndex": 126,
+              "vertexCount": 8,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "17",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 70,
+              "indexCount": 21,
+              "startIndexIndex": 144,
+              "vertexCount": 9,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "19",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 79,
+              "indexCount": 12,
+              "startIndexIndex": 165,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "22",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 85,
+              "indexCount": 6,
+              "startIndexIndex": 177,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "25",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 89,
+              "indexCount": 6,
+              "startIndexIndex": 183,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "27",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 93,
+              "indexCount": 12,
+              "startIndexIndex": 189,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "29",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 99,
+              "indexCount": 15,
+              "startIndexIndex": 201,
+              "vertexCount": 7,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "3",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 24,
+              "indexCount": 12,
+              "startIndexIndex": 48,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "31",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 106,
+              "indexCount": 6,
+              "startIndexIndex": 216,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "33",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 110,
+              "indexCount": 9,
+              "startIndexIndex": 222,
+              "vertexCount": 5,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "35",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 115,
+              "indexCount": 9,
+              "startIndexIndex": 231,
+              "vertexCount": 5,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "37",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 120,
+              "indexCount": 9,
+              "startIndexIndex": 240,
+              "vertexCount": 5,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "40",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 125,
+              "indexCount": 27,
+              "startIndexIndex": 249,
+              "vertexCount": 11,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "41",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 136,
+              "indexCount": 18,
+              "startIndexIndex": 276,
+              "vertexCount": 8,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "42",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 144,
+              "indexCount": 12,
+              "startIndexIndex": 294,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "43",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 150,
+              "indexCount": 24,
+              "startIndexIndex": 306,
+              "vertexCount": 10,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "44",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 160,
+              "indexCount": 24,
+              "startIndexIndex": 330,
+              "vertexCount": 10,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "47",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 170,
+              "indexCount": 21,
+              "startIndexIndex": 354,
+              "vertexCount": 9,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "5",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 30,
+              "indexCount": 15,
+              "startIndexIndex": 60,
+              "vertexCount": 7,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "52",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 179,
+              "indexCount": 12,
+              "startIndexIndex": 375,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "54",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 185,
+              "indexCount": 12,
+              "startIndexIndex": 387,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "56",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 191,
+              "indexCount": 15,
+              "startIndexIndex": 399,
+              "vertexCount": 7,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "58",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 198,
+              "indexCount": 12,
+              "startIndexIndex": 414,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "60",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 204,
+              "indexCount": 12,
+              "startIndexIndex": 426,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "62",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 210,
+              "indexCount": 12,
+              "startIndexIndex": 438,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "64",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 216,
+              "indexCount": 24,
+              "startIndexIndex": 450,
+              "vertexCount": 10,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "66",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 226,
+              "indexCount": 24,
+              "startIndexIndex": 474,
+              "vertexCount": 10,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "68",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 236,
+              "indexCount": 6,
+              "startIndexIndex": 498,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "7",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 37,
+              "indexCount": 6,
+              "startIndexIndex": 75,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "70",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 240,
+              "indexCount": 6,
+              "startIndexIndex": 504,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "72",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 244,
+              "indexCount": 6,
+              "startIndexIndex": 510,
+              "vertexCount": 4,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "74",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 248,
+              "indexCount": 9,
+              "startIndexIndex": 516,
+              "vertexCount": 5,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "78",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 253,
+              "indexCount": 27,
+              "startIndexIndex": 525,
+              "vertexCount": 11,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "80",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 264,
+              "indexCount": 12,
+              "startIndexIndex": 552,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "81",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 270,
+              "indexCount": 15,
+              "startIndexIndex": 564,
+              "vertexCount": 7,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "82",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 277,
+              "indexCount": 27,
+              "startIndexIndex": 579,
+              "vertexCount": 11,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "83",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 288,
+              "indexCount": 21,
+              "startIndexIndex": 606,
+              "vertexCount": 9,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "86",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 297,
+              "indexCount": 27,
+              "startIndexIndex": 627,
+              "vertexCount": 11,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "9",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 41,
+              "indexCount": 12,
+              "startIndexIndex": 81,
+              "vertexCount": 6,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "92",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 308,
+              "indexCount": 54,
+              "startIndexIndex": 654,
+              "vertexCount": 16,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "94",
+        "DisplayListEntry": {
+          "Array": [
+            {
+              "symbolId": -1,
+              "entries": -1,
+              "transform": {
+                "rX": 1.0,
+                "uX": -0.0,
+                "rY": -0.0,
+                "uY": 1.0,
+                "tX": 0.0,
+                "tY": -0.0
+              }
+            }
+          ]
+        },
+        "skinChunks": {
+          "Array": [
+            {
+              "startVertexIndex": 324,
+              "indexCount": 54,
+              "startIndexIndex": 708,
+              "vertexCount": 16,
+              "textureIndex": 0,
+              "maskState": 0
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "m_keys": {
+    "Array": [
+      "1",
+      "11",
+      "13",
+      "15",
+      "17",
+      "19",
+      "22",
+      "25",
+      "27",
+      "29",
+      "3",
+      "31",
+      "33",
+      "35",
+      "37",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "47",
+      "5",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60",
+      "62",
+      "64",
+      "66",
+      "68",
+      "7",
+      "70",
+      "72",
+      "74",
+      "78",
+      "80",
+      "81",
+      "82",
+      "83",
+      "86",
+      "9",
+      "92",
+      "94"
+    ]
+  },
+  "triangles": {
+    "Array": [
+      0,
+      4,
+      5,
+      3,
+      0,
+      2,
+      3,
+      4,
+      0,
+      0,
+      1,
+      2,
+      11,
+      10,
+      6,
+      8,
+      6,
+      9,
+      6,
+      10,
+      9,
+      8,
+      7,
+      6,
+      17,
+      16,
+      12,
+      14,
+      12,
+      15,
+      12,
+      16,
+      15,
+      14,
+      13,
+      12,
+      18,
+      22,
+      23,
+      21,
+      18,
+      20,
+      21,
+      22,
+      18,
+      18,
+      19,
+      20,
+      3,
+      4,
+      5,
+      2,
+      3,
+      5,
+      0,
+      1,
+      2,
+      0,
+      2,
+      5,
+      4,
+      5,
+      6,
+      3,
+      4,
+      6,
+      0,
+      1,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      6,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      3,
+      4,
+      5,
+      0,
+      2,
+      3,
+      0,
+      1,
+      2,
+      0,
+      3,
+      5,
+      0,
+      4,
+      5,
+      3,
+      1,
+      2,
+      3,
+      4,
+      1,
+      0,
+      1,
+      4,
+      5,
+      0,
+      1,
+      6,
+      7,
+      0,
+      4,
+      5,
+      2,
+      4,
+      2,
+      3,
+      5,
+      1,
+      2,
+      5,
+      6,
+      0,
+      0,
+      7,
+      8,
+      0,
+      6,
+      7,
+      4,
+      5,
+      6,
+      4,
+      2,
+      3,
+      4,
+      1,
+      2,
+      4,
+      0,
+      1,
+      4,
+      6,
+      0,
+      0,
+      7,
+      8,
+      5,
+      6,
+      7,
+      4,
+      1,
+      3,
+      4,
+      5,
+      1,
+      1,
+      7,
+      0,
+      1,
+      2,
+      3,
+      5,
+      7,
+      1,
+      0,
+      4,
+      5,
+      2,
+      3,
+      4,
+      0,
+      1,
+      2,
+      0,
+      2,
+      4,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      0,
+      4,
+      5,
+      2,
+      3,
+      4,
+      1,
+      4,
+      0,
+      1,
+      2,
+      4,
+      3,
+      5,
+      6,
+      3,
+      4,
+      5,
+      0,
+      1,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      6,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      0,
+      3,
+      4,
+      0,
+      2,
+      3,
+      0,
+      1,
+      2,
+      0,
+      3,
+      4,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      1,
+      3,
+      4,
+      1,
+      2,
+      3,
+      0,
+      1,
+      4,
+      0,
+      9,
+      10,
+      6,
+      3,
+      5,
+      6,
+      7,
+      3,
+      7,
+      8,
+      0,
+      5,
+      3,
+      4,
+      7,
+      0,
+      3,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      8,
+      9,
+      0,
+      0,
+      6,
+      7,
+      4,
+      5,
+      6,
+      3,
+      4,
+      6,
+      3,
+      0,
+      2,
+      0,
+      1,
+      2,
+      3,
+      6,
+      0,
+      0,
+      1,
+      4,
+      2,
+      3,
+      4,
+      1,
+      2,
+      4,
+      0,
+      4,
+      5,
+      0,
+      8,
+      9,
+      7,
+      0,
+      6,
+      5,
+      1,
+      3,
+      5,
+      6,
+      0,
+      5,
+      3,
+      4,
+      5,
+      0,
+      1,
+      3,
+      1,
+      2,
+      7,
+      8,
+      0,
+      0,
+      1,
+      8,
+      7,
+      1,
+      6,
+      3,
+      1,
+      2,
+      5,
+      6,
+      1,
+      5,
+      3,
+      4,
+      5,
+      1,
+      3,
+      7,
+      8,
+      1,
+      0,
+      8,
+      9,
+      6,
+      7,
+      8,
+      5,
+      6,
+      8,
+      1,
+      2,
+      3,
+      1,
+      3,
+      4,
+      0,
+      1,
+      4,
+      0,
+      4,
+      5,
+      0,
+      5,
+      8,
+      3,
+      4,
+      5,
+      2,
+      3,
+      5,
+      0,
+      1,
+      2,
+      0,
+      2,
+      5,
+      0,
+      4,
+      5,
+      1,
+      4,
+      0,
+      2,
+      4,
+      1,
+      2,
+      3,
+      4,
+      3,
+      5,
+      6,
+      3,
+      4,
+      5,
+      0,
+      1,
+      2,
+      0,
+      2,
+      3,
+      0,
+      3,
+      6,
+      3,
+      4,
+      5,
+      1,
+      3,
+      5,
+      1,
+      2,
+      3,
+      0,
+      1,
+      5,
+      3,
+      4,
+      5,
+      0,
+      2,
+      3,
+      0,
+      1,
+      2,
+      0,
+      3,
+      5,
+      0,
+      4,
+      5,
+      3,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      4,
+      0,
+      0,
+      1,
+      8,
+      6,
+      7,
+      8,
+      3,
+      1,
+      2,
+      5,
+      6,
+      1,
+      5,
+      3,
+      4,
+      5,
+      1,
+      3,
+      1,
+      6,
+      8,
+      0,
+      8,
+      9,
+      7,
+      8,
+      9,
+      0,
+      1,
+      5,
+      5,
+      6,
+      7,
+      4,
+      1,
+      2,
+      4,
+      2,
+      3,
+      1,
+      4,
+      5,
+      0,
+      5,
+      7,
+      0,
+      7,
+      9,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      1,
+      2,
+      3,
+      0,
+      1,
+      3,
+      2,
+      3,
+      4,
+      1,
+      2,
+      4,
+      0,
+      1,
+      4,
+      0,
+      1,
+      9,
+      7,
+      8,
+      9,
+      5,
+      6,
+      7,
+      3,
+      1,
+      2,
+      5,
+      3,
+      4,
+      5,
+      7,
+      3,
+      3,
+      7,
+      1,
+      1,
+      7,
+      9,
+      0,
+      9,
+      10,
+      1,
+      4,
+      5,
+      3,
+      4,
+      1,
+      3,
+      1,
+      2,
+      0,
+      1,
+      5,
+      4,
+      5,
+      6,
+      0,
+      4,
+      6,
+      2,
+      3,
+      4,
+      0,
+      1,
+      2,
+      0,
+      2,
+      4,
+      7,
+      9,
+      10,
+      7,
+      8,
+      9,
+      1,
+      3,
+      6,
+      5,
+      6,
+      3,
+      6,
+      7,
+      1,
+      5,
+      3,
+      4,
+      1,
+      2,
+      3,
+      1,
+      7,
+      10,
+      0,
+      1,
+      10,
+      0,
+      7,
+      8,
+      5,
+      6,
+      7,
+      0,
+      1,
+      5,
+      4,
+      5,
+      2,
+      4,
+      2,
+      3,
+      1,
+      2,
+      5,
+      0,
+      5,
+      7,
+      0,
+      9,
+      10,
+      1,
+      8,
+      9,
+      2,
+      6,
+      7,
+      6,
+      3,
+      4,
+      6,
+      4,
+      5,
+      2,
+      3,
+      6,
+      1,
+      2,
+      7,
+      1,
+      7,
+      8,
+      0,
+      1,
+      9,
+      0,
+      1,
+      5,
+      0,
+      5,
+      4,
+      1,
+      2,
+      6,
+      1,
+      6,
+      5,
+      2,
+      3,
+      7,
+      2,
+      7,
+      6,
+      4,
+      5,
+      9,
+      4,
+      9,
+      8,
+      5,
+      6,
+      10,
+      5,
+      10,
+      9,
+      6,
+      7,
+      11,
+      6,
+      11,
+      10,
+      8,
+      9,
+      13,
+      8,
+      13,
+      12,
+      9,
+      10,
+      14,
+      9,
+      14,
+      13,
+      10,
+      11,
+      15,
+      10,
+      15,
+      14,
+      0,
+      1,
+      5,
+      0,
+      5,
+      4,
+      1,
+      2,
+      6,
+      1,
+      6,
+      5,
+      2,
+      3,
+      7,
+      2,
+      7,
+      6,
+      4,
+      5,
+      9,
+      4,
+      9,
+      8,
+      5,
+      6,
+      10,
+      5,
+      10,
+      9,
+      6,
+      7,
+      11,
+      6,
+      11,
+      10,
+      8,
+      9,
+      13,
+      8,
+      13,
+      12,
+      9,
+      10,
+      14,
+      9,
+      14,
+      13,
+      10,
+      11,
+      15,
+      10,
+      15,
+      14
+    ]
+  },
+  "vertices": {
+    "Array": [
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.75,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.75,
+          "y": 4.7064896,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -12.239122,
+          "y": 12.239122,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9628906,
+          "y": 0.6308594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -3.4510508,
+          "y": 14.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9765625,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": 14.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.380531,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.380531,
+          "y": 4.7064896,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.869654,
+          "y": 12.239122,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9628906,
+          "y": 0.6308594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.081582,
+          "y": 14.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9765625,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": 14.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.75,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.75,
+          "y": -5.337021,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -12.239122,
+          "y": -12.869654,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9628906,
+          "y": 0.6308594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -3.4510508,
+          "y": -15.380531,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9765625,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -15.380531,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.380531,
+          "y": -0.31526566,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.62109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.380531,
+          "y": -5.337021,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.869654,
+          "y": -12.869654,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9628906,
+          "y": 0.6308594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.081582,
+          "y": -15.380531,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9765625,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.31526566,
+          "y": -15.380531,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9824219,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.514102,
+          "y": -4.7401905,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.66015625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.514102,
+          "y": -9.290773,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.63671875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.9817598,
+          "y": -9.290773,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9082031,
+          "y": 0.63671875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -3.98176,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.6640625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.6845703
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.773912,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9472656,
+          "y": 0.6845703
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.32142,
+          "y": -7.4929585,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.26953125,
+          "y": 0.5283203
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.32142,
+          "y": -19.789095,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.26953125,
+          "y": 0.4658203
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 23.823767,
+          "y": -19.789095,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.24414062,
+          "y": 0.4658203
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 17.291443,
+          "y": -15.754425,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.17773438,
+          "y": 0.48632812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -1.7291442,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.5576172
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.56640625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.1527629,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.013671875,
+          "y": 0.56640625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.266077,
+          "y": -8.458312,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.51953125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -8.458312,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.51953125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.5625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.266077,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.5625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.7282023,
+          "y": -5.9592648,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.55078125,
+          "y": 0.29492188
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.7282023,
+          "y": -8.073843,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.55078125,
+          "y": 0.2841797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.0369215,
+          "y": -8.073843,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5234375,
+          "y": 0.2841797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.1145778,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.31445312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.3251953
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.5378748,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.49804688,
+          "y": 0.3251953
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8131757,
+          "y": -2.3084383,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9707031,
+          "y": 0.8046875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.7757218,
+          "y": -7.2804594,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9042969,
+          "y": 0.77734375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.2804594,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.77734375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -5.149593,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.7890625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.149593,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.94140625,
+          "y": 0.8173828
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8131757,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9707031,
+          "y": 0.8173828
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.888409,
+          "y": -5.921511,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8769531,
+          "y": 0.96875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.888409,
+          "y": -34.38297,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8769531,
+          "y": 0.8232422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.225056,
+          "y": -41.45058,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.7167969,
+          "y": 0.7871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.977776,
+          "y": -41.45058,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.68359375,
+          "y": 0.7871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -37.248215,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5917969,
+          "y": 0.80859375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.0676103,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5917969,
+          "y": 0.9628906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.416072,
+          "y": -0.1910165,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.71875,
+          "y": 0.9980469
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.28132,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.7480469,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 21.966896,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.81640625,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.765123,
+          "y": -8.650546,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9941406,
+          "y": 0.9550781
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.4990466,
+          "y": -11.9185295,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.91015625,
+          "y": 0.93847656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.3456404,
+          "y": -12.1107645,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8984375,
+          "y": 0.9375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.3844687,
+          "y": -12.1107645,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8886719,
+          "y": 0.9375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.8058586,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.9746094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.0369215,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.9785156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.073843,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9667969,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.765123,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9941406,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.277796,
+          "y": -9.924809,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.16210938,
+          "y": 0.29589844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.049464,
+          "y": -14.277796,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.05859375,
+          "y": 0.27148438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.3929557,
+          "y": -14.277796,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.017578125,
+          "y": 0.27148438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.17411946,
+          "y": -10.969526,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.00390625,
+          "y": 0.29003906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -10.273048,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.2939453
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -6.790659,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.31347656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.69647783,
+          "y": -3.8306282,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.009765625,
+          "y": 0.33007812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.705973,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.099609375,
+          "y": 0.3515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.277796,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.16210938,
+          "y": 0.3515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.745537,
+          "y": -3.331633,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.23632812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.745537,
+          "y": -6.7673798,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.20410156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.1426983,
+          "y": -8.84965,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9394531,
+          "y": 0.18457031
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -8.84965,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.82421875,
+          "y": 0.18457031
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.82421875,
+          "y": 0.26757812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.808515,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9707031,
+          "y": 0.26757812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.1830614,
+          "y": -2.2492146,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.546875,
+          "y": 0.20410156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.2492146,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.20410156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.23730469
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.1830614,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.546875,
+          "y": 0.23730469
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.0384617,
+          "y": -2.5000002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.4111328
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.5000002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9550781,
+          "y": 0.4111328
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9550781,
+          "y": 0.42382812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.0384617,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.42382812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.840874,
+          "y": -15.763218,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28710938,
+          "y": 0.05078125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -15.763218,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.14648438,
+          "y": 0.05078125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.114578,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.14648438,
+          "y": 0.12011719
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.5378748,
+          "y": -0.19223437,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.16210938,
+          "y": 0.12988281
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.0369215,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.1875,
+          "y": 0.13085938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.840874,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28710938,
+          "y": 0.13085938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.266077,
+          "y": -4.0369215,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.6123047
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.266077,
+          "y": -13.071937,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.56640625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.343734,
+          "y": -13.071937,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9316406,
+          "y": 0.56640625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.4990466,
+          "y": -3.4602187,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8925781,
+          "y": 0.6152344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.9980936,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.6074219
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.2291555,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.91015625,
+          "y": 0.6328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.643304,
+          "y": -7.490864,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.97265625,
+          "y": 0.82128906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.490864,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.82128906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.859375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.643304,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.97265625,
+          "y": 0.859375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.959265,
+          "y": -8.458313,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.54296875,
+          "y": 0.15722656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -8.458313,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.15722656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.2291565,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.17871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.229156,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5253906,
+          "y": 0.20019531
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.959265,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.54296875,
+          "y": 0.20019531
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.419857,
+          "y": -4.4215655,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98046875,
+          "y": 0.86328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.4215655,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.86328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -0.38448396,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.38448396,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8886719,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.419857,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98046875,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 11.802156,
+          "y": -7.587101,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28320312,
+          "y": 0.0029296875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.901078,
+          "y": -7.587101,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.21484375,
+          "y": 0.0029296875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.720863,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.14648438,
+          "y": 0.01953125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.14648438,
+          "y": 0.046875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 11.802156,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28320312,
+          "y": 0.046875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 23.750784,
+          "y": -10.450346,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.24609375,
+          "y": 0.9453125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.930922,
+          "y": -16.530546,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.2890625,
+          "y": 0.9140625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.930922,
+          "y": -35.341167,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.2890625,
+          "y": 0.8173828
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.160401,
+          "y": -41.42137,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.12695312,
+          "y": 0.7861328
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 11.21037,
+          "y": -41.611378,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.1171875,
+          "y": 0.78515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.450345,
+          "y": -41.611378,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.109375,
+          "y": 0.78515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -38.571278,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.80078125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.410245,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.9609375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.030232,
+          "y": -2.4700818,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.07421875,
+          "y": 0.9863281
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 15.010495,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.15625,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 22.230734,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.23046875,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.426569,
+          "y": -3.8179703,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.15820312,
+          "y": 0.24414062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.426569,
+          "y": -13.840142,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.15820312,
+          "y": 0.18261719
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.222367,
+          "y": -13.840142,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.08203125,
+          "y": 0.18261719
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.4954106,
+          "y": -6.2042017,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.01171875,
+          "y": 0.22949219
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.7,
+          "y": -4.454299,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.24023438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.7,
+          "y": -2.3862314,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.2529297
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.540531,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.0859375,
+          "y": 0.26757812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.244926,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.119140625,
+          "y": 0.26757812
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.330492,
+          "y": -2.9451091,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.34375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.330492,
+          "y": -14.415534,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.27148438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -14.415534,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.82421875,
+          "y": 0.27148438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.4800918,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.82421875,
+          "y": 0.3466797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.4402747,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.91796875,
+          "y": 0.3623047
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.145338,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9394531,
+          "y": 0.3623047
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.223077,
+          "y": 28.196152,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5449219,
+          "y": 0.72753906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.684615,
+          "y": 22.619228,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5800781,
+          "y": 0.69921875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.684615,
+          "y": 3.7730749,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5800781,
+          "y": 0.6035156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -5.469231,
+          "y": -2.1884637,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.41601562,
+          "y": 0.5732422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -7.9692316,
+          "y": -2.1884637,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.390625,
+          "y": 0.5732422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -17.2,
+          "y": 2.0423055,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.296875,
+          "y": 0.59472656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -17.2,
+          "y": 31.65769,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.296875,
+          "y": 0.7451172
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -16.238462,
+          "y": 32.81154,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.30664062,
+          "y": 0.75097656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -3.161539,
+          "y": 39.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.43945312,
+          "y": 0.7841797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.7230763,
+          "y": 39.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.51953125,
+          "y": 0.7841797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.338461,
+          "y": 33.38846,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.27148438,
+          "y": 0.75097656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.684615,
+          "y": 19.15769,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28515625,
+          "y": 0.67871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.684615,
+          "y": 3.7730749,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.28515625,
+          "y": 0.60058594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -5.469231,
+          "y": -2.1884637,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.12109375,
+          "y": 0.5703125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -7.9692316,
+          "y": -2.1884637,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.095703125,
+          "y": 0.5703125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -17.2,
+          "y": 2.0423055,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.5917969
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -17.2,
+          "y": 31.65769,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.7421875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -16.238462,
+          "y": 32.81154,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.01171875,
+          "y": 0.7480469
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -3.161539,
+          "y": 39.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.14453125,
+          "y": 0.78125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.3769226,
+          "y": 39.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.2109375,
+          "y": 0.78125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 44.080772,
+          "y": 16.673077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.43554688,
+          "y": 0.29785156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 47.926926,
+          "y": 2.2499995,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.47460938,
+          "y": 0.22460938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 47.926926,
+          "y": -10.0576935,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.47460938,
+          "y": 0.16210938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 42.73462,
+          "y": -10.0576935,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.421875,
+          "y": 0.16210938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 42.157696,
+          "y": 6.4807687,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.41601562,
+          "y": 0.24609375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 37.54231,
+          "y": 18.403847,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.36914062,
+          "y": 0.30664062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.35,
+          "y": 29.557692,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.265625,
+          "y": 0.36328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 27.35,
+          "y": 29.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.265625,
+          "y": 0.3642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 32.734615,
+          "y": 29.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.3203125,
+          "y": 0.3642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.316962,
+          "y": -1.5565281,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.15234375,
+          "y": 0.16992188
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.316962,
+          "y": -7.7826405,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.15234375,
+          "y": 0.13476562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.7449546,
+          "y": -7.7826405,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.078125,
+          "y": 0.13476562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.496637,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.15332031
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.17871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.534322,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.064453125,
+          "y": 0.17871094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.26923,
+          "y": -15.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.4296875,
+          "y": 0.08203125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -15.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.29492188,
+          "y": 0.08203125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -1.5384616,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.29492188,
+          "y": 0.15039062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.307692,
+          "y": -0.1923077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.31835938,
+          "y": 0.15722656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.653846,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.33203125,
+          "y": 0.15820312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.26923,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.4296875,
+          "y": 0.15820312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8846154,
+          "y": -6.538461,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9472656,
+          "y": 0.44140625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8846154,
+          "y": -12.499999,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9472656,
+          "y": 0.4111328
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.961539,
+          "y": -12.499999,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9277344,
+          "y": 0.4111328
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.6538463,
+          "y": -4.807692,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9042969,
+          "y": 0.4501953
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.615384,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.45117188
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.47460938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.8076925,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9160156,
+          "y": 0.47460938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8846154,
+          "y": -8.076922,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9472656,
+          "y": 0.36621094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.0384617,
+          "y": -8.076922,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9082031,
+          "y": 0.36621094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.3846154,
+          "y": -6.538461,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.87109375,
+          "y": 0.37402344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.807692,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.3828125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.40722656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.8846154,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9472656,
+          "y": 0.40722656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.538461,
+          "y": -6.153846,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5488281,
+          "y": 0.24902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.538461,
+          "y": -7.6923075,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5488281,
+          "y": 0.24121094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.8461537,
+          "y": -7.6923075,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5214844,
+          "y": 0.24121094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.1153846,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.26953125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.28027344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.4615383,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5175781,
+          "y": 0.28027344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.5,
+          "y": -2.1153846,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.55859375,
+          "y": 0.35351562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.7307693,
+          "y": -6.923077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5,
+          "y": 0.32910156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -6.923077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.32910156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.8076925,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48242188,
+          "y": 0.33984375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.769231,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5410156,
+          "y": 0.3642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 7.5,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.55859375,
+          "y": 0.3642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.173283,
+          "y": -5.124839,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5761719,
+          "y": 0.9716797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.905403,
+          "y": -25.258135,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5839844,
+          "y": 0.8642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.905403,
+          "y": -35.141754,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5839844,
+          "y": 0.81152344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.361186,
+          "y": -39.534473,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.43945312,
+          "y": 0.78808594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 6.0399885,
+          "y": -39.534473,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.36132812,
+          "y": 0.78808594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -34.958725,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.296875,
+          "y": 0.8125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.5042286,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.296875,
+          "y": 0.9589844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 1.0981797,
+          "y": -5.856959,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.30859375,
+          "y": 0.96777344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.544216,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.44140625,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 21.048445,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5214844,
+          "y": 0.99902344
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.031111,
+          "y": -4.515556,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.095703125,
+          "y": 0.43847656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.794073,
+          "y": -9.971852,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.13476562,
+          "y": 0.41015625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 24.647406,
+          "y": -18.814816,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.2578125,
+          "y": 0.3642578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 24.647406,
+          "y": -20.508148,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.2578125,
+          "y": 0.35546875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 23.518518,
+          "y": -20.508148,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.24609375,
+          "y": 0.35546875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.6444445,
+          "y": -13.922963,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.060546875,
+          "y": 0.38964844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -10.160001,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.4091797
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -8.466667,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.41796875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.0696297,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.0234375,
+          "y": 0.46191406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 2.8222222,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.03125,
+          "y": 0.46191406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.180081,
+          "y": -7.22891,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.47851562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -7.22891,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.47851562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 8.180081,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9511719,
+          "y": 0.515625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.7539728,
+          "y": -8.580509,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.42773438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -8.580509,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9550781,
+          "y": 0.42773438
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9550781,
+          "y": 0.47460938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.7539728,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.47460938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.3335905,
+          "y": -2.705389,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.13671875,
+          "y": 0.024414062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -2.705389,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.024414062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.043945312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.3335905,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.13671875,
+          "y": 0.043945312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.876522,
+          "y": -8.385727,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.88964844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.9133391,
+          "y": -8.385727,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.92578125,
+          "y": 0.88964844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -4.4723873,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.91015625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8847656,
+          "y": 0.93359375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.876522,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.93359375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 25.726921,
+          "y": -3.846154,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.84765625,
+          "y": 0.7636719
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.880768,
+          "y": -18.269232,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.859375,
+          "y": 0.6904297
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 26.880768,
+          "y": -35.384617,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.859375,
+          "y": 0.6035156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.226922,
+          "y": -39.615387,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.7207031,
+          "y": 0.58203125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.1499996,
+          "y": -39.615387,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.6386719,
+          "y": 0.58203125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.15,
+          "y": -34.615387,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5878906,
+          "y": 0.6074219
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.15,
+          "y": -18.846153,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5878906,
+          "y": 0.6875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 5.3423076,
+          "y": -16.346153,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.640625,
+          "y": 0.7001953
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.957692,
+          "y": -2.1153846,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.63671875,
+          "y": 0.77246094
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.573076,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.734375,
+          "y": 0.7832031
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 19.188461,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.78125,
+          "y": 0.7832031
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.57582,
+          "y": -4.3824825,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.75097656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 10.098764,
+          "y": -5.5257387,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9707031,
+          "y": 0.7451172
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.5730257,
+          "y": -16.577215,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9140625,
+          "y": 0.68847656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -16.577215,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.68847656
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.8671875,
+          "y": 0.7734375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.57582,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.7734375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.765255,
+          "y": -4.5228696,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.13867188,
+          "y": 0.10839844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 13.765255,
+          "y": -14.551841,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.13867188,
+          "y": 0.05859375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.719516,
+          "y": -16.714952,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.048828125,
+          "y": 0.047851562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -16.714952,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.047851562
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.0,
+          "y": -3.5396369,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.001953125,
+          "y": 0.11328125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 3.5396369,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.037109375,
+          "y": 0.13085938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 9.242385,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.09375,
+          "y": 0.13085938
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 11.476921,
+          "y": 32.903847,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.84765625,
+          "y": 0.55859375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.630767,
+          "y": 18.480768,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.859375,
+          "y": 0.48535156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.630767,
+          "y": 1.365384,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.859375,
+          "y": 0.3984375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -1.0230781,
+          "y": -2.8653853,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.7207031,
+          "y": 0.37695312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -9.1,
+          "y": -2.8653853,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.6386719,
+          "y": 0.37695312
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.1,
+          "y": 2.1346147,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5878906,
+          "y": 0.40234375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.1,
+          "y": 17.903847,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5878906,
+          "y": 0.48242188
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -9.676924,
+          "y": 26.173077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.6328125,
+          "y": 0.52441406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -8.33077,
+          "y": 33.673077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.6464844,
+          "y": 0.5625
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -0.8307704,
+          "y": 36.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.72265625,
+          "y": 0.578125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.93846,
+          "y": 36.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.78125,
+          "y": 0.578125
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.630767,
+          "y": 32.71154,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5644531,
+          "y": 0.5488281
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 12.630767,
+          "y": 1.365384,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5644531,
+          "y": 0.38964844
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -1.0230781,
+          "y": -2.8653853,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.42578125,
+          "y": 0.36816406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -9.1,
+          "y": -2.8653853,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.34375,
+          "y": 0.36816406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.1,
+          "y": 2.1346147,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.29296875,
+          "y": 0.3935547
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.1,
+          "y": 20.980768,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.29296875,
+          "y": 0.4892578
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -7.9461546,
+          "y": 34.057693,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.35546875,
+          "y": 0.55566406
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 0.130768,
+          "y": 36.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.4375,
+          "y": 0.56933594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 4.93846,
+          "y": 36.75,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.48632812,
+          "y": 0.56933594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -21.211538,
+          "y": 55.63077,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.81640625,
+          "y": 0.36914062
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -26.211538,
+          "y": 53.9,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.765625,
+          "y": 0.36035156
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -36.596153,
+          "y": 41.01539,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.66015625,
+          "y": 0.29492188
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -38.903847,
+          "y": 34.476925,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.63671875,
+          "y": 0.26171875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -40.634617,
+          "y": 20.438465,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.6191406,
+          "y": 0.19042969
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -45.25,
+          "y": 20.438465,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5722656,
+          "y": 0.19042969
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -45.25,
+          "y": 34.669235,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.5722656,
+          "y": 0.2626953
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -36.596153,
+          "y": 51.976925,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.66015625,
+          "y": 0.35058594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -28.903847,
+          "y": 56.015385,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.73828125,
+          "y": 0.37109375
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -26.596153,
+          "y": 56.4,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.76171875,
+          "y": 0.37304688
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -21.211538,
+          "y": 56.4,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.81640625,
+          "y": 0.37304688
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -142.5,
+          "y": 100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -140.5,
+          "y": 100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 140.54999,
+          "y": 100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 142.54999,
+          "y": 100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.8857422
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -142.5,
+          "y": 98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -140.5,
+          "y": 98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 140.54999,
+          "y": 98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 142.54999,
+          "y": 98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -142.5,
+          "y": -98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -140.5,
+          "y": -98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 140.54999,
+          "y": -98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 142.54999,
+          "y": -98.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.88378906
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -142.5,
+          "y": -100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98828125,
+          "y": 0.88183594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -140.5,
+          "y": -100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88183594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 140.54999,
+          "y": -100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9921875,
+          "y": 0.88183594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 142.54999,
+          "y": -100.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.99609375,
+          "y": 0.88183594
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -20.0,
+          "y": 28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.6171875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.35,
+          "y": 28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6171875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.400002,
+          "y": 28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6171875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 20.0,
+          "y": 28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98095703,
+          "y": 0.6171875
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -20.0,
+          "y": 22.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.35,
+          "y": 22.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.400002,
+          "y": 22.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 20.0,
+          "y": 22.35,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98095703,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -20.0,
+          "y": -22.400002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.35,
+          "y": -22.400002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.400002,
+          "y": -22.400002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 20.0,
+          "y": -22.400002,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98095703,
+          "y": 0.6116699
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -20.0,
+          "y": -28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9589844,
+          "y": 0.6062012
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": -14.35,
+          "y": -28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6062012
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 14.400002,
+          "y": -28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.9700195,
+          "y": 0.6062012
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      },
+      {
+        "pos": {
+          "x": 20.0,
+          "y": -28.0,
+          "z": 0.0
+        },
+        "uv": {
+          "x": 0.98095703,
+          "y": 0.6062012
+        },
+        "multiplicativeColor": 2139062143,
+        "additiveColor": 0
+      }
+    ]
+  },
+  "referencedSymbols": {
+    "Array": []
+  },
+  "emptyCustomisations": {
+    "Array": [
+      "PiedD_1",
+      "PiedG_1",
+      "AnimMarche_1",
+      "AnimAttaque1_1",
+      "AnimAttaque3_1",
+      "AnimAttaque2_1",
+      "AnimMort_1",
+      "AnimHit_1",
+      "AnimStatique_1",
+      "PiedG_5",
+      "MainD_5",
+      "MainG_5",
+      "AnimCourse_5",
+      "AnimMarche_5",
+      "AnimAttaque1_5",
+      "AnimAttaque3_5",
+      "AnimAttaque2_5",
+      "AnimMort_5",
+      "AnimHit_5",
+      "AnimStatique_5",
+      "AnimCourse_1",
+      "DisplayInfo_turnstart",
+      "DisplayInfo_timeline",
+      "AnimArtwork_1"
+    ]
+  },
+  "textures": {
+    "Array": [
+      {
+        "m_FileID": 0,
+        "m_PathID": 7418354013621174071
+      }
+    ]
+  }
+}

@@ -75,8 +75,10 @@
     let scale = 1.0; // Default scale (no zoom)
     const scaleStep = 0.1; // Scale increment/decrement step
 
+    const skinId = 1058;
+
     const start = async () => {
-        const skinAssetDataReq = await fetch("./431-SkinAsset.json")
+        const skinAssetDataReq = await fetch("./" + skinId +"/" + skinId + "-SkinAsset.json")
         const skinAsset = await skinAssetDataReq.json();
 
         let keys = skinAsset.m_keys;
@@ -87,7 +89,7 @@
             skinAsset.entries[keys.Array[i]] = values.Array[i];
         }
 
-        const anim = await readInstance("431_AnimMarche_1.dat");
+        const anim = await readInstance("./" + skinId + "/" + skinId + "_AnimMarche_1.dat");
         console.log(anim);
 
         let renderStates = Array(anim.NodeCount).fill().map(() => new RenderState());
@@ -109,7 +111,7 @@
         // Prepare to load the texture
         const texture = gl.createTexture();
         const image = new Image();
-        image.src = '431-0-CAB-8f98965d3e5289d359d6fba9110aaaad-6749235089228085436.png';
+        image.src = './' + skinId + '/' + skinId + '.png';
 
         image.onload = function() {
             // Bind the texture object
@@ -132,10 +134,7 @@
 
 
         let startRendering = function () {
-            // 60 FPS
             let currentFrame = 0;
-            //let frameBounds = computeFrame(anim, currentFrame, renderStates, skinAsset);
-            //render(skinAsset, shaderProgram, texture);
 
             setInterval(() => {
                 currentFrame++;
@@ -143,7 +142,7 @@
                     currentFrame = 0;
                 }
 
-                frameBounds = computeFrame(anim, currentFrame, renderStates, skinAsset);
+                _ = computeFrame(anim, currentFrame, renderStates, skinAsset);
                 render(skinAsset, shaderProgram, texture);
             }, 1000 / 30);
         }
@@ -321,9 +320,14 @@
         let strLen = dataView.getUint32(0, true);
 
         let str = new TextDecoder('utf-8').decode(new Uint8Array(data.slice(4, 4 + strLen)));
-        console.log(str);
 
-        return new AnimationInstance(fileName, data.slice(4 + strLen + 4));
+        let bytesOffset = (4 + strLen + 4);
+
+        if(bytesOffset % 4 !== 0){
+            bytesOffset += 4 - (bytesOffset % 4);
+        }
+
+        return new AnimationInstance(fileName, data.slice(bytesOffset));
     }
 
 
