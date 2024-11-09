@@ -46,6 +46,8 @@
         }
     `;
 
+    const skinId = 1058;
+
     const start = async function(){
         // Compile shaders
         const vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
@@ -54,13 +56,13 @@
         // Create shader program
         const shaderProgram = createProgram(gl, vertexShader, fragmentShader);
 
-        const skinAssetDataReq = await fetch("./431-SkinAsset.json");
+        const skinAssetDataReq = await fetch("./" + skinId + "/" + skinId+ "-SkinAsset.json");
         const skinAsset = await skinAssetDataReq.json();
 
         // Prepare to load the texture
         const texture = gl.createTexture();
         const image = new Image();
-        image.src = '431-0-CAB-8f98965d3e5289d359d6fba9110aaaad-6749235089228085436.png';
+        image.src = './' + skinId + '/' + skinId + '.png';
         image.onload = function() {
             // Bind the texture object
             gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -193,7 +195,7 @@
             gl.clear(gl.COLOR_BUFFER_BIT);
 
 
-            let onlyShowName = "56";
+            let onlyShowName = "19";
 
             console.log(skinAsset.vertices)
             // Now, render each asset

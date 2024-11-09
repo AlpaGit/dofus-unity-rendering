@@ -102,6 +102,7 @@
         baseTriangleIndices = JSON.parse(JSON.stringify(triangleIndices));
 
 
+        console.log(skinAsset)
         // Compile shaders
         const vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
         const fragmentShader = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
@@ -181,11 +182,12 @@
             gl.uniform2f(uScaleLocation, scale, scale);
 
             // Clear the canvas
-            gl.clearColor(255.0, 255.0, 255.0, 1.0);
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
             gl.clear(gl.COLOR_BUFFER_BIT);
 
             for(let meshKey in meshes){
                 const mesh = meshes[meshKey];
+
 
                 const positions = [];
                 const texCoords = [];
@@ -214,7 +216,6 @@
                         additiveColor.b,
                         additiveColor.a
                     );
-
                 });
 
                 const indices = mesh.indices;
@@ -272,7 +273,6 @@
                 gl.deleteBuffer(indexBuffer);
                 gl.deleteBuffer(multiplicativeColorBuffer);
                 gl.deleteBuffer(additiveColorBuffer);
-
             }
         }
     };
@@ -650,8 +650,6 @@
         vertexBuffer = [];
         triangleIndices = [];
 
-        baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
-
         meshes.length = 0;
 
         const frameBounds = new Bounds(Vector2.positiveInfinity(), Vector2.negativeInfinity());
@@ -659,7 +657,10 @@
         let nodesCount = nodeCount - 1;
         while (nodesCount >= 0 && dataPosition < bytes.byteLength)
         {
-            //console.log(dataPosition)
+            // we have to copy it because it's modified everytime
+            // C'EST SUPER MAL OPTIMISÉ FRANCHEMENT MAIS ÇA DEMANDE UN PEU TROP DE CHANGEMENT DE MODIFIER ÇA
+            baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
+
             let dataView = new DataView(bytes, dataPosition);
             // we get a ushort to get the node num
             let nodeNum = dataView.getUint16(0, true);
@@ -668,7 +669,6 @@
 
             dataPosition = renderStates[nodeNum].compute(new Uint8Array(bytes), dataPosition);
             let renderState = renderStates[nodeNum];
-
 
             // we have to find the skinasset.parts at index of render state of spriteIndex
             // safely, if it's not inside the array, we skip
@@ -679,6 +679,7 @@
                 nodesCount--;
                 continue;
             }
+
 
             //console.log('rendering', nodeNum, renderState.spriteIndex, part);
             //console.log('renderState', renderState);
@@ -820,7 +821,6 @@
 
         // Adjust the alpha component based on the render state's alpha value
         const adjustedAlpha = color.a * (renderState.alpha / 255);
-        console.log("AdjustedAlpha", adjustedAlpha);
 
         // Update the vertex's multiplicative color
         vertex.multiplicativeColor = ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
@@ -971,11 +971,6 @@
             scale -= scaleStep;
             if (scale < 0.1) scale = 0.1; // Set a lower limit to zoom out
         }
-
-        // Optionally, update the translation to keep the canvas centered
-        // For example, adjust uTranslation based on the new scale if needed
-
-        console.log(`Current Scale: ${scale}`);
     }, { passive: false });
 
 
