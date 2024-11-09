@@ -26,20 +26,33 @@
             // Vertex Shader Source (vertexShaderSource)
             attribute vec2 aPosition;
             attribute vec2 aTexCoord;
+            attribute vec4 aMultiplicativeColor;
+            attribute vec4 aAdditiveColor;
 
             uniform mat4 uProjectionMatrix;
             uniform vec2 uTranslation;
+            uniform vec2 uScale; // New uniform for scaling
 
             varying vec2 vTexCoord;
+            varying vec4 vMultiplicativeColor;
+            varying vec4 vAdditiveColor;
 
             void main(void) {
+                // Apply scaling to position
+                vec2 scaledPosition = aPosition * uScale;
+
                 // Apply translation to position the asset
-                vec2 position = aPosition + uTranslation;
+                vec2 position = scaledPosition + uTranslation;
+
                 // Transform the position using the projection matrix
                 gl_Position = uProjectionMatrix * vec4(position, 0.0, 1.0);
-                // Pass the texture coordinate to the fragment shader
+
+                // Pass the texture coordinate and colors to the fragment shader
                 vTexCoord = aTexCoord;
+                vMultiplicativeColor = aMultiplicativeColor;
+                vAdditiveColor = aAdditiveColor;
             }
+
         `;
 
     const fragmentShaderSource = `
@@ -49,14 +62,18 @@
             uniform sampler2D uTexture;
 
             varying vec2 vTexCoord;
+            varying vec4 vMultiplicativeColor;
+            varying vec4 vAdditiveColor;
 
             void main(void) {
-                gl_FragColor = texture2D(uTexture, vTexCoord);
+                vec4 texColor = texture2D(uTexture, vTexCoord);
+                gl_FragColor = (texColor * vMultiplicativeColor) + vAdditiveColor;
             }
-
         `;
 
-    const usedSkin = [];
+    const meshes = [];
+    let scale = 1.0; // Default scale (no zoom)
+    const scaleStep = 0.1; // Scale increment/decrement step
 
     const start = async () => {
         const skinAssetDataReq = await fetch("./431-SkinAsset.json")
@@ -139,14 +156,19 @@
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+
             // Get attribute locations
             const aPosition = gl.getAttribLocation(shaderProgram, 'aPosition');
             const aTexCoord = gl.getAttribLocation(shaderProgram, 'aTexCoord');
+            const aMultiplicativeColor = gl.getAttribLocation(shaderProgram, 'aMultiplicativeColor');
+            const aAdditiveColor = gl.getAttribLocation(shaderProgram, 'aAdditiveColor');
+
 
             // Get uniform locations
             const uProjectionMatrix = gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
             const uTranslation = gl.getUniformLocation(shaderProgram, 'uTranslation');
             const uTexture = gl.getUniformLocation(shaderProgram, 'uTexture');
+            const uScaleLocation = gl.getUniformLocation(shaderProgram, 'uScale');
 
             // Set the texture uniform
             gl.activeTexture(gl.TEXTURE0);
@@ -157,57 +179,102 @@
             const projectionMatrix = mat4.create();
             mat4.ortho(projectionMatrix, 0, canvas.width, 0, canvas.height, -1, 1);
             gl.uniformMatrix4fv(uProjectionMatrix, false, projectionMatrix);
+            gl.uniform2f(uScaleLocation, scale, scale);
 
             // Clear the canvas
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clearColor(255.0, 255.0, 255.0, 1.0);
             gl.clear(gl.COLOR_BUFFER_BIT);
 
-            const positions = [];
-            const texCoords = [];
+            for(let meshKey in meshes){
+                const mesh = meshes[meshKey];
 
-            // Vertices
-            vertexBuffer.forEach(vertex => {
-                positions.push(vertex.pos.x, vertex.pos.y);
-                texCoords.push(vertex.uv.x, (1 - vertex.uv.y)); // No inversion needed
-            });
+                const positions = [];
+                const texCoords = [];
+                const multiplicativeColors = [];
+                const additiveColors = [];
 
-            const indices = triangleIndices;
+                // Vertices
+                mesh.vertex.forEach(vertex => {
+                    positions.push(vertex.pos.x, vertex.pos.y);
+                    texCoords.push(vertex.uv.x, (1 - vertex.uv.y));
 
-            // Create and bind buffers
-            const positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+                    const multiplicativeColor = ConvertFromEncodedColor(vertex.multiplicativeColor);
+                    const additiveColor = ConvertFromEncodedColor(vertex.additiveColor);
 
-            const texCoordBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords), gl.STATIC_DRAW);
+                    // Push RGBA components normalized to [0,1]
+                    multiplicativeColors.push(
+                        multiplicativeColor.r,
+                        multiplicativeColor.g,
+                        multiplicativeColor.b,
+                        multiplicativeColor.a
+                    );
 
-            const indexBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+                    additiveColors.push(
+                        additiveColor.r,
+                        additiveColor.g,
+                        additiveColor.b,
+                        additiveColor.a
+                    );
 
-            // Bind position buffer
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            gl.enableVertexAttribArray(aPosition);
-            gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+                });
 
-            // Bind texture coordinate buffer
-            gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-            gl.enableVertexAttribArray(aTexCoord);
-            gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, 0, 0);
+                const indices = mesh.indices;
 
-            // Bind index buffer
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+                // Create and bind buffers
 
-            gl.uniform2fv(uTranslation, [131, 15]);
+                const positionBuffer = gl.createBuffer();
+                const indexBuffer = gl.createBuffer();
+                const texCoordBuffer = gl.createBuffer();
+                const multiplicativeColorBuffer = gl.createBuffer();
+                const additiveColorBuffer = gl.createBuffer();
 
-            // Draw the asset
-            gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-            // Clean up buffers
-            gl.deleteBuffer(positionBuffer);
-            gl.deleteBuffer(texCoordBuffer);
-            gl.deleteBuffer(indexBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords), gl.STATIC_DRAW);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+                // Bind and upload multiplicative color data
+                gl.bindBuffer(gl.ARRAY_BUFFER, multiplicativeColorBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(multiplicativeColors), gl.STATIC_DRAW);
+                gl.enableVertexAttribArray(aMultiplicativeColor);
+                gl.vertexAttribPointer(aMultiplicativeColor, 4, gl.FLOAT, false, 0, 0);
+
+                // Bind and upload additive color data
+                gl.bindBuffer(gl.ARRAY_BUFFER, additiveColorBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(additiveColors), gl.STATIC_DRAW);
+                gl.enableVertexAttribArray(aAdditiveColor);
+                gl.vertexAttribPointer(aAdditiveColor, 4, gl.FLOAT, false, 0, 0);
+
+                // Bind position buffer
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.enableVertexAttribArray(aPosition);
+                gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+                // Bind texture coordinate buffer
+                gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+                gl.enableVertexAttribArray(aTexCoord);
+                gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, 0, 0);
+
+                // Bind index buffer
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+                gl.uniform2fv(uTranslation, [400, 250]);
+
+                // Draw the asset
+                gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+
+                // Clean up buffers
+                gl.deleteBuffer(positionBuffer);
+                gl.deleteBuffer(texCoordBuffer);
+                gl.deleteBuffer(indexBuffer);
+                gl.deleteBuffer(multiplicativeColorBuffer);
+                gl.deleteBuffer(additiveColorBuffer);
+
+            }
         }
     };
 
@@ -520,99 +587,6 @@
 
             return dataPosition;
         }
-
-        Compute(animationDataBuffer, dataPosition) {
-            const dataView = new DataView(animationDataBuffer);
-            const b = dataView.getUint8(dataPosition);
-            let offset = dataPosition;
-
-            if ((b & 2) !== 0) {
-                this.alpha = dataView.getUint8(offset + 1);
-            }
-            offset += 2;
-
-            // Align offset to the next 4-byte boundary
-            let remainder = offset % 4;
-            if (remainder !== 0) {
-                offset += 4 - remainder;
-            }
-
-            if ((b & 0x21) !== 0) {
-                // Read spriteIndex (Int16)
-                this.spriteIndex = dataView.getInt16(offset, true); // Little-endian
-                this.customisationIndex = dataView.getInt16(offset + 2, true);
-                this.childrenRecursiveCount = dataView.getInt16(offset + 4, true);
-
-                offset += 6;
-
-                // Align offset to the next 4-byte boundary
-                remainder = offset % 4;
-                if (remainder !== 0) {
-                    offset += 4 - remainder;
-                }
-            }
-
-            if ((b & 4) !== 0) {
-                // Read multiplicativeColor (Uint32)
-                this.multiplicativeColor = dataView.getUint32(offset, true);
-                offset += 4;
-            }
-
-            if ((b & 8) !== 0) {
-                // Read additiveColor (Uint32)
-                this.additiveColor = dataView.getUint32(offset, true);
-                offset += 4;
-            }
-
-            if ((b & 16) !== 0) {
-                // Read transformation matrix (6 floats)
-                this.m00 = dataView.getFloat32(offset, true);
-                this.m01 = dataView.getFloat32(offset + 4, true);
-                this.m03 = dataView.getFloat32(offset + 8, true);
-                this.m10 = dataView.getFloat32(offset + 12, true);
-                this.m11 = dataView.getFloat32(offset + 16, true);
-                this.m13 = dataView.getFloat32(offset + 20, true);
-                offset += 24;
-            }
-
-
-            if ((b & 64) !== 0) {
-                // Read maskFlags (assuming 1 byte)
-                this.maskFlags = dataView.getUint8(offset);
-                offset += 4; // Advance by 4 bytes as per C# code
-            }
-
-            if ((b & 128) === 0) {
-                return offset;
-            }
-
-            // Read extendedFilterAndBlendState and blendMode
-            const extendedFilterAndBlendState = dataView.getUint8(offset);
-            this.blendMode = dataView.getUint8(offset + 1);
-            offset += 4;
-
-            // Check if ColorMatrixFilter flag is set
-            if ((extendedFilterAndBlendState & Animation.ExtendedFilterAndBlendState.ColorMatrixFilter) === 0) {
-                return offset;
-            }
-
-            // Read colorMatrix (5 Vector4s, each with 4 floats)
-            this.colorMatrix = [];
-            for (let i = 0; i < 5; i++) {
-                const baseOffset = offset + i * 16; // Each Vector4 is 16 bytes
-                const num = dataView.getFloat32(baseOffset, true);
-                const num2 = dataView.getFloat32(baseOffset + 4, true);
-                const num3 = dataView.getFloat32(baseOffset + 8, true);
-                const num4 = dataView.getFloat32(baseOffset + 12, true);
-                this.colorMatrix.push(new Vector4(num, num2, num3, num4));
-            }
-            offset += 80; // 5 Vector4s * 16 bytes each
-
-
-
-            return offset;
-        }
-
         Reset() {
             this.m00 = 1.0;
             this.m01 = 0.0;
@@ -674,6 +648,7 @@
 
         baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
 
+        meshes.length = 0;
 
         const frameBounds = new Bounds(Vector2.positiveInfinity(), Vector2.negativeInfinity());
 
@@ -698,7 +673,6 @@
 
             if(part === undefined) {
                 nodesCount--;
-                console.log('skipping', nodeNum);
                 continue;
             }
 
@@ -707,23 +681,37 @@
 
             for(let p in part.skinChunks.Array){
                 let skinChunk = part.skinChunks.Array[p];
-                let count = vertexBuffer.length;
-                let partBounds = transformVerticesIntoList(vertexBuffer,
+                const newVertices = [];
+
+                let partBounds = transformVerticesIntoList(newVertices,
                     baseVertexBuffer,
                     skinChunk.startVertexIndex,
                     skinChunk.vertexCount,
                     renderState);
 
+                vertexBuffer = vertexBuffer.concat(newVertices);
+
                 frameBounds.encapsulate(partBounds);
 
-                offsetIndicesIntoList(triangleIndices,
+                const newTriangleIndices = [];
+                offsetIndicesIntoList(newTriangleIndices,
                     baseTriangleIndices,
                     skinChunk.startIndexIndex,
                     skinChunk.indexCount,
-                    count);
-            }
+                    /*count*/ 0);
 
-            usedSkin.push(part);
+                triangleIndices = triangleIndices.concat(newTriangleIndices);
+
+                let mesh = {
+                    nodeNum: nodeNum,
+                    part: part,
+                    renderState: renderState,
+                    vertex: newVertices,
+                    indices: newTriangleIndices,
+                };
+                meshes.push(mesh);
+
+            }
 
             nodesCount--;
         }
@@ -753,51 +741,60 @@
     }
 
     // ConvertSWFColor function
-    function ConvertSWFColor(red, green, blue, alpha) {
-        // Ensure inputs are in the range -128 to 127
-        red = ((red + 128) % 256) - 128;
-        green = ((green + 128) % 256) - 128;
-        blue = ((blue + 128) % 256) - 128;
-        alpha = ((alpha + 128) % 256) - 128;
+    // ConvertSWFColor function
+    function ConvertSWFColor(r, g, b, a = 1.0) {
+        // Helper function to clamp and floor the value
+        function clampAndFloor(val) {
+            return Math.max(Math.min(Math.floor(val * 128), 127), -128);
+        }
 
-        // Convert to unsigned 8-bit values
-        const red8 = red & 0xFF;
-        const green8 = green & 0xFF;
-        const blue8 = blue & 0xFF;
-        const alpha8 = alpha & 0xFF;
+        // Helper function to convert signed byte to unsigned byte
+        function toUnsignedByte(sbyte) {
+            return (sbyte < 0) ? (256 + sbyte) : sbyte;
+        }
 
-        // Combine into a 32-bit unsigned integer
-        const color = red8 | (green8 << 8) | (blue8 << 16) | (alpha8 << 24);
+        // Clamp and floor each component
+        const redSByte = clampAndFloor(r);
+        const greenSByte = clampAndFloor(g);
+        const blueSByte = clampAndFloor(b);
+        const alphaSByte = clampAndFloor(a);
 
-        // Ensure the result is an unsigned 32-bit integer
-        return color >>> 0;
+        // Convert to unsigned bytes
+        const redByte = toUnsignedByte(redSByte);
+        const greenByte = toUnsignedByte(greenSByte);
+        const blueByte = toUnsignedByte(blueSByte);
+        const alphaByte = toUnsignedByte(alphaSByte);
+
+        // Pack into a 32-bit unsigned integer
+        const color = (redByte | (greenByte << 8) | (blueByte << 16) | (alphaByte << 24)) >>> 0;
+
+        return color;
     }
 
     // ConvertFromEncodedColor function
     function ConvertFromEncodedColor(encodedColor) {
-        // Extract the components
+        // Helper function to convert unsigned byte to signed byte
+        function fromUnsignedByte(byte) {
+            return (byte >= 128) ? (byte - 256) : byte;
+        }
+
+        // Unpack each byte
         const redByte = encodedColor & 0xFF;
         const greenByte = (encodedColor >> 8) & 0xFF;
         const blueByte = (encodedColor >> 16) & 0xFF;
         const alphaByte = (encodedColor >> 24) & 0xFF;
 
-        // Convert to signed bytes (-128 to 127)
-        const red = toSignedByte(redByte);
-        const green = toSignedByte(greenByte);
-        const blue = toSignedByte(blueByte);
-        const alpha = toSignedByte(alphaByte);
+        // Convert to signed bytes
+        const red = fromUnsignedByte(redByte);
+        const green = fromUnsignedByte(greenByte);
+        const blue = fromUnsignedByte(blueByte);
+        const alpha = fromUnsignedByte(alphaByte);
 
-        // Adjust to unsigned bytes (0 to 255)
-        const redU = red + 128;
-        const greenU = green + 128;
-        const blueU = blue + 128;
-        const alphaU = alpha + 128;
-
-        // Normalize components to [0, 1] range
-        const r = redU / 255.0;
-        const g = greenU / 255.0;
-        const b = blueU / 255.0;
-        const a = alphaU / 255.0;
+        // Normalize to [0, 1] range
+        const r = red / 128.0;
+        const g = green / 128.0;
+        const b = blue / 128.0;
+        const a = alpha / 128.0;
 
         return new Color(r, g, b, a);
     }
@@ -819,12 +816,10 @@
 
         // Adjust the alpha component based on the render state's alpha value
         const adjustedAlpha = color.a * (renderState.alpha / 255);
-
-        // Convert the adjusted RGBA components back to an encoded color
-        const num = ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
+        console.log("AdjustedAlpha", adjustedAlpha);
 
         // Update the vertex's multiplicative color
-        vertex.multiplicativeColor = num;
+        vertex.multiplicativeColor = ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
 
         // Return the modified vertex
         return vertex;
@@ -957,6 +952,27 @@
     function alignTo4Bytes(position) {
         return position % 4 === 0 ? position : position - (position % 4) + 4;
     }
+
+    // Add event listener for mouse wheel to handle zoom
+    canvas.addEventListener('wheel', function(event) {
+        event.preventDefault(); // Prevent the page from scrolling
+
+        // Determine the direction of the wheel scroll
+        if (event.deltaY < 0) {
+            // Zoom in
+            scale += scaleStep;
+            if (scale > 5.0) scale = 5.0; // Set an upper limit to zoom in
+        } else {
+            // Zoom out
+            scale -= scaleStep;
+            if (scale < 0.1) scale = 0.1; // Set a lower limit to zoom out
+        }
+
+        // Optionally, update the translation to keep the canvas centered
+        // For example, adjust uTranslation based on the new scale if needed
+
+        console.log(`Current Scale: ${scale}`);
+    }, { passive: false });
 
 
     start();
