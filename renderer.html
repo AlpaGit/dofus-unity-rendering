@@ -23,7 +23,7 @@
     let baseTriangleIndices = [];
 
     const vertexShaderSource = `
-            // Vertex Shader Source (vertexShaderSource)
+            // Vertex Shader Source
             attribute vec2 aPosition;
             attribute vec2 aTexCoord;
             attribute vec4 aMultiplicativeColor;
@@ -31,43 +31,50 @@
 
             uniform mat4 uProjectionMatrix;
             uniform vec2 uTranslation;
-            uniform vec2 uScale; // New uniform for scaling
+            uniform vec2 uScale;
+            uniform float uOutlineScale; // New uniform for outline scaling
 
             varying vec2 vTexCoord;
             varying vec4 vMultiplicativeColor;
             varying vec4 vAdditiveColor;
 
             void main(void) {
-                // Apply scaling to position
-                vec2 scaledPosition = aPosition * uScale;
+                // Apply scaling (object scale + outline scale)
+                vec2 scaledPosition = aPosition * uScale * (uOutlineScale > 1.0 ? uOutlineScale : 1.0);
 
-                // Apply translation to position the asset
-                vec2 position = scaledPosition + uTranslation;
+                // Apply translation
+                vec2 translatedPosition = scaledPosition + uTranslation;
 
-                // Transform the position using the projection matrix
-                gl_Position = uProjectionMatrix * vec4(position, 0.0, 1.0);
+                // Apply projection
+                gl_Position = uProjectionMatrix * vec4(translatedPosition, 0.0, 1.0);
 
-                // Pass the texture coordinate and colors to the fragment shader
+                // Pass through texture coordinates and colors
                 vTexCoord = aTexCoord;
                 vMultiplicativeColor = aMultiplicativeColor;
                 vAdditiveColor = aAdditiveColor;
             }
-
         `;
 
     const fragmentShaderSource = `
-            // Fragment Shader Source (fragmentShaderSource)
+            // Fragment Shader Source
             precision mediump float;
 
             uniform sampler2D uTexture;
+            uniform bool uIsOutline;
 
             varying vec2 vTexCoord;
             varying vec4 vMultiplicativeColor;
             varying vec4 vAdditiveColor;
 
             void main(void) {
-                vec4 texColor = texture2D(uTexture, vTexCoord);
-                gl_FragColor = (texColor * vMultiplicativeColor) + vAdditiveColor;
+                if (uIsOutline) {
+                    // Render the outline color with its alpha
+                    gl_FragColor = vMultiplicativeColor + vAdditiveColor;
+                } else {
+                    // Standard rendering with texture
+                    vec4 texColor = texture2D(uTexture, vTexCoord);
+                    gl_FragColor = (texColor * vMultiplicativeColor) + vAdditiveColor;
+                }
             }
         `;
 
@@ -77,6 +84,25 @@
 
 
     const skinId = 1058;
+
+    // Initialize variables to store mouse position
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Variable to store the currently selected mesh
+    let selectedMesh = null;
+
+    // Add event listener for mouse movement
+    canvas.addEventListener('mousemove', function(event) {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = event.clientX - rect.left;
+        mouseY = rect.height - (event.clientY - rect.top); // Flip Y-axis to match WebGL coordinates
+    }, false);
+
+    // Add event listener for mouse leave to deselect mesh
+    canvas.addEventListener('mouseleave', function() {
+        selectedMesh = null;
+    }, false);
 
     const start = async () => {
         const skinAssetDataReq = await fetch("./" + skinId +"/" + skinId + "-SkinAsset.json")
@@ -91,7 +117,6 @@
         }
 
         const anim = await readInstance("./" + skinId + "/" + skinId + "_AnimMarche_1.dat");
-        console.log(anim);
 
         let renderStates = Array(anim.NodeCount).fill().map(() => new RenderState());
 
@@ -103,7 +128,6 @@
         baseTriangleIndices = JSON.parse(JSON.stringify(triangleIndices));
 
 
-        console.log(skinAsset)
         // Compile shaders
         const vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
         const fragmentShader = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
@@ -144,12 +168,12 @@
                     currentFrame = 0;
                 }
 
-                _ = computeFrame(anim, currentFrame, renderStates, skinAsset);
-                render(skinAsset, shaderProgram, texture);
+                const bounds = computeFrame(anim, currentFrame, renderStates, skinAsset);
+                render(skinAsset, shaderProgram, texture, bounds);
             }, 1000 / 30);
         }
 
-        function render(skinAsset, shaderProgram, texture) {
+        function render(skinAsset, shaderProgram, texture, animationBoundingBox) {
             // Use the shader program
             gl.useProgram(shaderProgram);
 
@@ -183,12 +207,23 @@
             gl.uniform2f(uScaleLocation, scale, scale);
 
             // Clear the canvas
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clearColor(255.0, 255.0, 255.0, 1.0);
             gl.clear(gl.COLOR_BUFFER_BIT);
+
+            // Perform hit detection based on the overall bounding box
+            if (isMouseOverAnimation(animationBoundingBox)) {
+                console.log('Mouse is over the animation!');
+                for(let meshKey in meshes) {
+                    const mesh = meshes[meshKey];
+                    renderOutline(mesh, shaderProgram, texture);
+                }
+            }
+
+            gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uIsOutline'), false);
+            gl.uniform1f(gl.getUniformLocation(shaderProgram, 'uOutlineScale'), 1.0);
 
             for(let meshKey in meshes){
                 const mesh = meshes[meshKey];
-
 
                 const positions = [];
                 const texCoords = [];
@@ -277,6 +312,152 @@
             }
         }
     };
+    /**
+     * Renders a blurred outline around the entire animation.
+     * @param {Object} boundingBox - The overall bounding box of the animation.
+     * @param {WebGLProgram} shaderProgram - The shader program.
+     */
+    /**
+     * Renders a blurred outline around the selected mesh.
+     * @param {Object} mesh - The selected mesh object.
+     * @param {WebGLProgram} shaderProgram - The shader program.
+     * @param {WebGLTexture} texture - The texture to use.
+     */
+    function renderOutline(mesh, shaderProgram, texture) {
+        const aPosition = gl.getAttribLocation(shaderProgram, 'aPosition');
+        const aTexCoord = gl.getAttribLocation(shaderProgram, 'aTexCoord');
+        const aMultiplicativeColor = gl.getAttribLocation(shaderProgram, 'aMultiplicativeColor');
+        const aAdditiveColor = gl.getAttribLocation(shaderProgram, 'aAdditiveColor');
+        const uTranslation = gl.getUniformLocation(shaderProgram, 'uTranslation');
+        const uScaleLocation = gl.getUniformLocation(shaderProgram, 'uScale');
+
+        // Define outline color (e.g., semi-transparent black)
+        const outlineColor = [0.0, 0.0, 0.0, 0.3]; // RGBA
+
+        // Define number of blur passes
+        const blurPasses = 4;
+        const blurScaleStep = 0.10; // Scale increment per pass
+
+        for (let i = 1; i <= blurPasses; i++) {
+            // Create buffers for outline
+            const outlinePositionBuffer = gl.createBuffer();
+            const outlineIndexBuffer = gl.createBuffer();
+            const outlineTexCoordBuffer = gl.createBuffer();
+            const outlineMultiplicativeColorBuffer = gl.createBuffer();
+            const outlineAdditiveColorBuffer = gl.createBuffer();
+
+            // Prepare outline vertices (scaled up)
+            const outlinePositions = [];
+            const outlineTexCoords = [];
+            const outlineMultiplicativeColors = [];
+            const outlineAdditiveColors = [];
+
+            mesh.vertex.forEach(vertex => {
+                // Apply additional scaling for outline
+                const scaledX = vertex.pos.x * (1 + blurScaleStep * i);
+                const scaledY = vertex.pos.y * (1 + blurScaleStep * i);
+
+                // we need to
+                outlinePositions.push(scaledX, scaledY);
+
+                outlineTexCoords.push(vertex.uv.x, (1 - vertex.uv.y));
+
+                // Set multiplicative color to the outline color
+                outlineMultiplicativeColors.push(
+                    outlineColor[0],
+                    outlineColor[1],
+                    outlineColor[2],
+                    outlineColor[3]
+                );
+
+                // No additive color for outline
+                outlineAdditiveColors.push(
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                );
+            });
+
+            const outlineIndices = mesh.indices;
+
+            // Bind and upload outline buffers
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlinePositionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(outlinePositions), gl.STATIC_DRAW);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlineTexCoordBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(outlineTexCoords), gl.STATIC_DRAW);
+
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(outlineIndices), gl.STATIC_DRAW);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlineMultiplicativeColorBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(outlineMultiplicativeColors), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(aMultiplicativeColor);
+            gl.vertexAttribPointer(aMultiplicativeColor, 4, gl.FLOAT, false, 0, 0);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlineAdditiveColorBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(outlineAdditiveColors), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(aAdditiveColor);
+            gl.vertexAttribPointer(aAdditiveColor, 4, gl.FLOAT, false, 0, 0);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlinePositionBuffer);
+            gl.enableVertexAttribArray(aPosition);
+            gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, outlineTexCoordBuffer);
+            gl.enableVertexAttribArray(aTexCoord);
+            gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, 0, 0);
+
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
+
+            // Set translation same as original mesh
+            gl.uniform2fv(uTranslation, [400, 250]);
+
+            // Set the scale uniform same as original mesh
+            gl.uniform2f(uScaleLocation, scale, scale);
+
+            // Set blending for the outline (additive blending for blur effect)
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+            // Draw the outline
+            gl.drawElements(gl.TRIANGLES, outlineIndices.length, gl.UNSIGNED_SHORT, 0);
+
+            // Re-enable additive color for subsequent meshes
+            gl.enableVertexAttribArray(aAdditiveColor);
+            gl.vertexAttribPointer(aAdditiveColor, 4, gl.FLOAT, false, 0, 0);
+
+            // Clean up outline buffers
+            gl.deleteBuffer(outlinePositionBuffer);
+            gl.deleteBuffer(outlineTexCoordBuffer);
+            gl.deleteBuffer(outlineIndexBuffer);
+            gl.deleteBuffer(outlineMultiplicativeColorBuffer);
+            gl.deleteBuffer(outlineAdditiveColorBuffer);
+        }
+    }
+
+
+    /**
+     * Determines if the mouse is over the animation based on its bounding box.
+     * @param {Object} boundingBox - The overall bounding box of the animation.
+     * @returns {boolean} True if the mouse is over the animation, false otherwise.
+     */
+    function isMouseOverAnimation(boundingBox) {
+        // Apply scaling and translation to the bounding box
+        const transformedMinX = boundingBox.minX * scale + 400; // 400 is uTranslation.x
+        const transformedMinY = boundingBox.minY * scale + 250; // 250 is uTranslation.y
+        const transformedMaxX = boundingBox.maxX * scale + 400;
+        const transformedMaxY = boundingBox.maxY * scale + 250;
+
+        // Check if mouse coordinates are within the transformed bounding box
+        return (
+            mouseX >= transformedMinX &&
+            mouseX <= transformedMaxX &&
+            mouseY >= transformedMinY &&
+            mouseY <= transformedMaxY
+        );
+    }
 
 
     function compileShader(gl, shaderSource, shaderType) {
@@ -353,7 +534,6 @@
             this.CombinedNodeState = dataView.getUint8(startIndex);
             startIndex += 2; // Note: In C# code, after reading a byte at index 6, startIndex is set to 8
 
-            console.log(this.FrameCount, this.NodeCount, this.LabelCount, this.CombinedNodeState);
 
             // Process Labels
             this.Labels = [];
@@ -679,7 +859,7 @@
         // reset render states
         SkipToJustBeforeFrame(animation, frame, renderStates);
 
-        const frameBounds = new Bounds(Vector2.positiveInfinity(), Vector2.negativeInfinity());
+        const frameBounds = new Bounds(new Vector2(0,0), new Vector2(0,0));
 
         let nodesCount = nodeCount - 1;
         while (nodesCount >= 0 && dataPosition < bytes.byteLength)
@@ -721,6 +901,7 @@
                     renderState);
 
                 vertexBuffer = vertexBuffer.concat(newVertices);
+
 
                 frameBounds.encapsulate(partBounds);
 
@@ -879,14 +1060,38 @@
 
         // Getter for min
         get min() {
+            if(this.size.x === 0 && this.size.y === 0){
+                return this.size;
+            }
+
             const halfSize = this.size.multiply(0.5);
             return this.center.subtract(halfSize);
         }
 
         // Getter for max
         get max() {
+            if(this.size.x === 0 && this.size.y === 0){
+                return this.size;
+            }
+
             const halfSize = this.size.multiply(0.5);
             return this.center.add(halfSize);
+        }
+
+        get minX() {
+            return this.min.x;
+        }
+
+        get minY() {
+            return this.min.y;
+        }
+
+        get maxX() {
+            return this.max.x;
+        }
+
+        get maxY() {
+            return this.max.y;
         }
 
         encapsulate(bounds) {
@@ -999,6 +1204,19 @@
         }
     }, { passive: false });
 
+    /**
+     * Generates the outline vertices based on the bounding box.
+     * @param {Object} boundingBox - The bounding box with min and max properties.
+     * @returns {Float32Array} The array of outline vertices.
+     */
+    function generateOutlineVertices(boundingBox) {
+        return new Float32Array([
+            boundingBox.minX, boundingBox.minY,
+            boundingBox.maxX, boundingBox.minY,
+            boundingBox.maxX, boundingBox.maxY,
+            boundingBox.minX, boundingBox.maxY
+        ]);
+    }
 
     start();
 
