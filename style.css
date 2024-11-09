@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    align-items: center;
+    font-family: Helvetica;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#settingsPanel {
+    max-width: 25vw;
+}
+
+#canvaPanel {
+    align-items: flex-start;
+}

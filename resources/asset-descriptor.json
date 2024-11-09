@@ -1,0 +1,42 @@
+{
+    "skinIds": [
+        "1058",
+        "431"
+    ],
+    "skins": {
+        "1058": [
+            "AnimMarche_1",
+            "AnimAttaque1_1",
+            "AnimAttaque3_1",
+            "AnimAttaque2_1",
+            "AnimMort_1",
+            "AnimHit_1",
+            "AnimStatique_1",
+            "AnimCourse_5",
+            "AnimMarche_5",
+            "AnimAttaque1_5",
+            "AnimAttaque3_5",
+            "AnimAttaque2_5",
+            "AnimMort_5",
+            "AnimHit_5",
+            "AnimStatique_5",
+            "AnimCourse_1",
+            "AnimArtwork_1"
+        ],
+        "431": [
+            "AnimMort_5",
+            "AnimMort_1",
+            "AnimCourse_5",
+            "AnimMarche_5",
+            "AnimCourse_1",
+            "AnimMarche_1",
+            "AnimAttaque1_1",
+            "AnimHit_1",
+            "AnimAttaque1_5",
+            "AnimHit_5",
+            "AnimStatique_1",
+            "AnimStatique_5",
+            "AnimArtwork_1"
+        ]
+    }
+}
