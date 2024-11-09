@@ -68,21 +68,21 @@ export default class AnimationRenderer {
     static baseVertexBuffer = [];
     static baseTriangleIndices = [];
     static triangleIndices = [];
-    static gl;
     static meshes = [];
 
     static mouseX = 0;
     static mouseY = 0;
 
-    static async Start() {
+    static intervalId;
+
+    static async Start(skinId, animation) {
+        AnimationRenderer.reset();
         const canvas = document.getElementById('glCanvas');
         const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
         if (!gl) {
             alert('Unable to initialize WebGL. Your browser may not support it.');
         }
-
-        const skinId = 431;
 
         // Initialize variables to store mouse position
 
@@ -112,7 +112,7 @@ export default class AnimationRenderer {
             skinAsset.entries[keys.Array[i]] = values.Array[i];
         }
 
-        const anim = await AnimationInstance.readInstance("./resources/" + skinId + "/" + skinId + "_AnimMarche_1.dat");
+        const anim = await AnimationInstance.readInstance("./resources/" + skinId + "/" + skinId + "_" + animation + ".dat");
 
         let renderStates = Array(anim.NodeCount).fill().map(() => new RenderState());
 
@@ -158,7 +158,7 @@ export default class AnimationRenderer {
         let startRendering = function () {
             let currentFrame = 0;
 
-            setInterval(() => {
+            AnimationRenderer.intervalId = setInterval(() => {
                 currentFrame++;
                 if (currentFrame >= anim.FrameCount) {
                     currentFrame = 0;
@@ -650,5 +650,14 @@ export default class AnimationRenderer {
             boundingBox.maxX, boundingBox.maxY,
             boundingBox.minX, boundingBox.maxY
         ]);
+    }
+
+    static reset(){
+        AnimationRenderer.vertexBuffer = [];
+        AnimationRenderer.baseVertexBuffer = [];
+        AnimationRenderer.baseTriangleIndices = [];
+        AnimationRenderer.triangleIndices = [];
+        AnimationRenderer.meshes = [];
+        clearInterval(AnimationRenderer.intervalId);
     }
 }
