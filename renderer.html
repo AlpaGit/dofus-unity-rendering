@@ -1,0 +1,964 @@
+<html lang="en">
+    <head>
+        <title>Big poutch renderer</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+    </head>
+    <body>
+    <canvas id="glCanvas" width="800" height="600"></canvas>
+    </body>
+</html>
+
+<script>
+    const canvas = document.getElementById('glCanvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+    if (!gl) {
+        alert('Unable to initialize WebGL. Your browser may not support it.');
+    }
+
+    let vertexBuffer = [];
+    let baseVertexBuffer = [];
+
+    let triangleIndices = [];
+    let baseTriangleIndices = [];
+
+    const vertexShaderSource = `
+            // Vertex Shader Source (vertexShaderSource)
+            attribute vec2 aPosition;
+            attribute vec2 aTexCoord;
+
+            uniform mat4 uProjectionMatrix;
+            uniform vec2 uTranslation;
+
+            varying vec2 vTexCoord;
+
+            void main(void) {
+                // Apply translation to position the asset
+                vec2 position = aPosition + uTranslation;
+                // Transform the position using the projection matrix
+                gl_Position = uProjectionMatrix * vec4(position, 0.0, 1.0);
+                // Pass the texture coordinate to the fragment shader
+                vTexCoord = aTexCoord;
+            }
+        `;
+
+    const fragmentShaderSource = `
+            // Fragment Shader Source (fragmentShaderSource)
+            precision mediump float;
+
+            uniform sampler2D uTexture;
+
+            varying vec2 vTexCoord;
+
+            void main(void) {
+                gl_FragColor = texture2D(uTexture, vTexCoord);
+            }
+
+        `;
+
+    const usedSkin = [];
+
+    const start = async () => {
+        const skinAssetDataReq = await fetch("./431-SkinAsset.json")
+        const skinAsset = await skinAssetDataReq.json();
+
+        let keys = skinAsset.m_keys;
+        let values = skinAsset.m_values;
+
+        skinAsset.entries = {};
+        for(let i = 0; i < keys.Array.length; i++) {
+            skinAsset.entries[keys.Array[i]] = values.Array[i];
+        }
+
+        const anim = await readInstance("431_AnimMarche_1.dat");
+        console.log(anim);
+
+        let renderStates = Array(anim.NodeCount).fill().map(() => new RenderState());
+
+        vertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
+        triangleIndices = skinAsset.triangles.Array;
+
+        // just copy
+        baseVertexBuffer = JSON.parse(JSON.stringify(vertexBuffer));
+        baseTriangleIndices = JSON.parse(JSON.stringify(triangleIndices));
+
+
+        // Compile shaders
+        const vertexShader = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
+        const fragmentShader = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
+
+        // Create shader program
+        const shaderProgram = createProgram(gl, vertexShader, fragmentShader);
+        // Prepare to load the texture
+        const texture = gl.createTexture();
+        const image = new Image();
+        image.src = '431-0-CAB-8f98965d3e5289d359d6fba9110aaaad-6749235089228085436.png';
+
+        image.onload = function() {
+            // Bind the texture object
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+
+            // Flip the image's Y axis to match WebGL's texture coordinate system
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+
+            // Set texture parameters
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+            // Upload the image into the texture
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA,
+                gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+            startRendering();
+        };
+
+
+        let startRendering = function () {
+            // 60 FPS
+            let currentFrame = 0;
+            //let frameBounds = computeFrame(anim, currentFrame, renderStates, skinAsset);
+            //render(skinAsset, shaderProgram, texture);
+
+            setInterval(() => {
+                currentFrame++;
+                if (currentFrame >= anim.FrameCount) {
+                    currentFrame = 0;
+                }
+
+                frameBounds = computeFrame(anim, currentFrame, renderStates, skinAsset);
+                render(skinAsset, shaderProgram, texture);
+            }, 1000 / 30);
+        }
+
+        function render(skinAsset, shaderProgram, texture) {
+            // Use the shader program
+            gl.useProgram(shaderProgram);
+
+            // Enable blending for transparency
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+            // Get attribute locations
+            const aPosition = gl.getAttribLocation(shaderProgram, 'aPosition');
+            const aTexCoord = gl.getAttribLocation(shaderProgram, 'aTexCoord');
+
+            // Get uniform locations
+            const uProjectionMatrix = gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
+            const uTranslation = gl.getUniformLocation(shaderProgram, 'uTranslation');
+            const uTexture = gl.getUniformLocation(shaderProgram, 'uTexture');
+
+            // Set the texture uniform
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.uniform1i(uTexture, 0);
+
+            // Set up the projection matrix
+            const projectionMatrix = mat4.create();
+            mat4.ortho(projectionMatrix, 0, canvas.width, 0, canvas.height, -1, 1);
+            gl.uniformMatrix4fv(uProjectionMatrix, false, projectionMatrix);
+
+            // Clear the canvas
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            const positions = [];
+            const texCoords = [];
+
+            // Vertices
+            vertexBuffer.forEach(vertex => {
+                positions.push(vertex.pos.x, vertex.pos.y);
+                texCoords.push(vertex.uv.x, (1 - vertex.uv.y)); // No inversion needed
+            });
+
+            const indices = triangleIndices;
+
+            // Create and bind buffers
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+            const texCoordBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords), gl.STATIC_DRAW);
+
+            const indexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+            // Bind position buffer
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.enableVertexAttribArray(aPosition);
+            gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+            // Bind texture coordinate buffer
+            gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+            gl.enableVertexAttribArray(aTexCoord);
+            gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, 0, 0);
+
+            // Bind index buffer
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+            gl.uniform2fv(uTranslation, [131, 15]);
+
+            // Draw the asset
+            gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+
+            // Clean up buffers
+            gl.deleteBuffer(positionBuffer);
+            gl.deleteBuffer(texCoordBuffer);
+            gl.deleteBuffer(indexBuffer);
+        }
+    };
+
+
+    function compileShader(gl, shaderSource, shaderType) {
+        const shader = gl.createShader(shaderType);
+        gl.shaderSource(shader, shaderSource);
+        gl.compileShader(shader);
+
+        // Check for errors
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            const error = gl.getShaderInfoLog(shader);
+            console.error('Shader compilation error:', error);
+            gl.deleteShader(shader);
+            return null;
+        }
+
+        return shader;
+    }
+
+    function createProgram(gl, vertexShader, fragmentShader) {
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+
+        // Check for errors
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            const error = gl.getProgramInfoLog(program);
+            console.error('Program linking error:', error);
+            gl.deleteProgram(program);
+            return null;
+        }
+
+        return program;
+    }
+
+    async function readInstance(fileName){
+        const req = await fetch(fileName);
+        const data = await req.arrayBuffer();
+
+        const dataView = new DataView(data);
+        // we read a string because thats how it's currently stored in unity
+        let strLen = dataView.getUint32(0, true);
+
+        let str = new TextDecoder('utf-8').decode(new Uint8Array(data.slice(4, 4 + strLen)));
+        console.log(str);
+
+        return new AnimationInstance(fileName, data.slice(4 + strLen + 4));
+    }
+
+
+    class AnimationInstance {
+        constructor(guid, data) {
+            this.Guid = guid;
+            this.referenceCount = 0;
+
+            const dataView = new DataView(data);
+            let startIndex = 0;
+
+            // Read Header Information
+            this.FrameCount = dataView.getUint16(startIndex, true); // Little-endian
+            startIndex += 2;
+
+            this.NodeCount = dataView.getUint16(startIndex, true);
+            startIndex += 2;
+
+            this.LabelCount = dataView.getUint16(startIndex, true);
+            startIndex += 2;
+
+            this.CombinedNodeState = dataView.getUint8(startIndex);
+            startIndex += 2; // Note: In C# code, after reading a byte at index 6, startIndex is set to 8
+
+            console.log(this.FrameCount, this.NodeCount, this.LabelCount, this.CombinedNodeState);
+
+            // Process Labels
+            this.Labels = [];
+            if (this.LabelCount > 0) {
+                for (let i = 0; i < this.LabelCount; ++i) {
+                    const pos = dataView.getUint16(startIndex, true);
+                    const count = dataView.getUint8(startIndex + 2);
+
+                    // Read the label string
+                    const labelBytes = new Uint8Array(data.slice(startIndex + 3, startIndex + 3 + count));
+                    const label = new TextDecoder('utf-8').decode(labelBytes);
+
+                    this.Labels.push(new AnimationLabel(pos, label));
+
+                    startIndex = startIndex + 3 + count;
+
+                    // Align startIndex to the next even number
+                    if (startIndex % 2 !== 0) {
+                        startIndex += 1;
+                    }
+                }
+
+                // Align startIndex to the next multiple of 4
+                while (startIndex % 4 !== 0) {
+                    startIndex += 1;
+                }
+            }
+
+            // Read Frame Data Positions
+            this.FrameDataPositions = [];
+            for (let i = 0; i < this.FrameCount; ++i) {
+                const frameDataPosition = dataView.getInt32(startIndex, true);
+                this.FrameDataPositions.push(frameDataPosition);
+                startIndex += 4;
+            }
+
+            // Store the data
+            this.Data = data;
+        }
+
+    }
+
+    // Helper class for AnimationLabel
+    class AnimationLabel {
+        constructor(pos, label) {
+            this.pos = pos;
+            this.label = label;
+        }
+    }
+
+    class RenderState {
+        constructor() {
+            this.Reset();
+        }
+
+        /**
+         * Parses the animation data to populate RenderState properties.
+         * @param {Uint8Array} animationData - The binary animation data.
+         * @param {number} dataPosition - The starting byte position for parsing.
+         * @returns {number} The updated byte position after parsing.
+         */
+        compute(animationData, dataPosition) {
+            if (!animationData) {
+                throw new Error("animationData is null or undefined.");
+                // In C++, sub_18076B300(this, 0LL, dataPosition, dataPosition);
+                // Here, throwing an error as a placeholder
+            }
+
+            const dataView = new DataView(animationData.buffer, animationData.byteOffset, animationData.byteLength);
+            const max_length = animationData.length;
+
+            if (dataPosition >= max_length) {
+                throw new Error("dataPosition exceeds animationData length.");
+                // In C++, goto LABEL_28 which calls sub_18076B2F0();
+                // Here, throwing an error as a placeholder
+            }
+
+            const v8 = animationData[dataPosition];
+            // Handle alpha if flag 0x02 is set
+            if ((v8 & 0x02) !== 0) {
+                if (dataPosition + 1 >= max_length) {
+                    throw new Error("Insufficient data for alpha.");
+                }
+                this.alpha = animationData[dataPosition + 1];
+            }
+
+            const v9 = v8;
+            let v10 = dataPosition + 2;
+            const v11 = (dataPosition + 2) % 4;
+            if (v11 !== 0) {
+                v10 = alignTo4Bytes(v10);
+            }
+
+            // Handle spriteIndex, customisationIndex, childrenRecursiveCount if flags 0x21 are set
+            if ((v9 & 0x21) !== 0) {
+                if (v10 + 6 > max_length) {
+                    throw new Error("Insufficient data for spriteIndex, customisationIndex, and childrenRecursiveCount.");
+                }
+
+                this.spriteIndex = readInt16(dataView, v10);
+                this.customisationIndex = readInt16(dataView, v10 + 2);
+                this.childrenRecursiveCount = readInt16(dataView, v10 + 4);
+
+                v10 += 6;
+                if (v10 % 4 !== 0) {
+                    v10 = alignTo4Bytes(v10);
+                }
+            }
+
+            // Handle multiplicativeColor if flag 0x04 is set
+            if ((v9 & 0x04) !== 0) {
+                if (v10 + 4 > max_length) {
+                    throw new Error("Insufficient data for multiplicativeColor.");
+                }
+                this.multiplicativeColor = readUint32(dataView, v10);
+                v10 += 4;
+            }
+
+            // Handle additiveColor if flag 0x08 is set
+            if ((v9 & 0x08) !== 0) {
+                if (v10 + 4 > max_length) {
+                    throw new Error("Insufficient data for additiveColor.");
+                }
+                this.additiveColor = readUint32(dataView, v10);
+                v10 += 4;
+            }
+
+            // Handle transformation matrices if flag 0x10 is set
+            if ((v9 & 0x10) !== 0) {
+                if (v10 + 24 > max_length) {
+                    throw new Error("Insufficient data for transformation matrices.");
+                }
+                this.m00 = readFloat32(dataView, v10);
+                this.m01 = readFloat32(dataView, v10 + 4);
+                this.m03 = readFloat32(dataView, v10 + 8);
+                this.m10 = readFloat32(dataView, v10 + 12);
+                this.m11 = readFloat32(dataView, v10 + 16);
+                this.m13 = readFloat32(dataView, v10 + 20);
+                v10 += 24;
+            }
+
+            // Handle maskFlags if flag 0x40 is set
+            if ((v9 & 0x40) !== 0) {
+                if (v10 + 1 > max_length) {
+                    throw new Error("Insufficient data for maskFlags.");
+                }
+                this.maskFlags = animationData[v10];
+                v10 += 1;
+            }
+
+            // Interpret v9 as signed char to check if negative
+            const signed_v9 = v9 >= 128 ? v9 - 256 : v9;
+            if (signed_v9 < 0) {
+                // Call ComputeExtendedFilterAndBlendState
+                v10 = this.computeExtendedFilterAndBlendState(animationData, v10);
+            }
+
+            return v10;
+
+        }
+
+
+        /**
+         * Parses extended filter and blend state data from the animation data.
+         * @param {Uint8Array} animationData - The binary animation data.
+         * @param {number} dataPosition - The current byte position for parsing.
+         * @returns {number} The updated byte position after parsing.
+         */
+        computeExtendedFilterAndBlendState(animationData, dataPosition) {
+            const dataView = new DataView(animationData.buffer, animationData.byteOffset, animationData.byteLength);
+            const max_length = animationData.length;
+
+            if (dataPosition >= max_length) {
+                throw new Error("dataPosition exceeds animationData length in extended parsing.");
+            }
+
+            const blendMode = animationData[dataPosition];
+            this.blendMode = blendMode;
+            dataPosition += 1;
+
+            // Example Implementation:
+            // Assuming blendMode indicates how to parse the following data
+            // For demonstration, we'll handle specific blend modes
+            // In practice, adjust based on actual data specifications
+
+            while (blendMode > 0) {
+                if (dataPosition >= max_length) {
+                    throw new Error("Insufficient data for filters.");
+                }
+
+                const filterType = animationData[dataPosition];
+                dataPosition += 1;
+
+                switch (filterType) {
+                    case 1: // Drop Shadow
+                        if (dataPosition + 16 > max_length) {
+                            throw new Error("Insufficient data for Drop Shadow filter.");
+                        }
+                        this.dropShadow = {
+                            offsetX: readFloat32(dataView, dataPosition),
+                            offsetY: readFloat32(dataView, dataPosition + 4),
+                            blurRadius: readFloat32(dataView, dataPosition + 8),
+                            color: readUint32(dataView, dataPosition + 12)
+                        };
+                        dataPosition += 16; // 4 floats: 16 bytes
+                        break;
+                    case 2: // Blur
+                        if (dataPosition + 4 > max_length) {
+                            throw new Error("Insufficient data for Blur filter.");
+                        }
+                        this.blur = {
+                            blurRadius: readFloat32(dataView, dataPosition)
+                        };
+                        dataPosition += 4; // 1 float: 4 bytes
+                        break;
+                    case 4: // Glow
+                        if (dataPosition + 12 > max_length) {
+                            throw new Error("Insufficient data for Glow filter.");
+                        }
+                        this.glow = {
+                            intensity: readFloat32(dataView, dataPosition),
+                            color: readUint32(dataView, dataPosition + 4),
+                            spread: readFloat32(dataView, dataPosition + 8)
+                        };
+                        dataPosition += 12; // 3 floats: 12 bytes
+                        break;
+                    default:
+                        throw new Error(`Unknown filter type: ${filterType}`);
+                }
+
+                // Update blendMode if multiple filters are encoded
+                // This depends on how blendMode is represented in the data
+                // For simplicity, assuming one filter per call
+                break;
+            }
+
+            return dataPosition;
+        }
+
+        Compute(animationDataBuffer, dataPosition) {
+            const dataView = new DataView(animationDataBuffer);
+            const b = dataView.getUint8(dataPosition);
+            let offset = dataPosition;
+
+            if ((b & 2) !== 0) {
+                this.alpha = dataView.getUint8(offset + 1);
+            }
+            offset += 2;
+
+            // Align offset to the next 4-byte boundary
+            let remainder = offset % 4;
+            if (remainder !== 0) {
+                offset += 4 - remainder;
+            }
+
+            if ((b & 0x21) !== 0) {
+                // Read spriteIndex (Int16)
+                this.spriteIndex = dataView.getInt16(offset, true); // Little-endian
+                this.customisationIndex = dataView.getInt16(offset + 2, true);
+                this.childrenRecursiveCount = dataView.getInt16(offset + 4, true);
+
+                offset += 6;
+
+                // Align offset to the next 4-byte boundary
+                remainder = offset % 4;
+                if (remainder !== 0) {
+                    offset += 4 - remainder;
+                }
+            }
+
+            if ((b & 4) !== 0) {
+                // Read multiplicativeColor (Uint32)
+                this.multiplicativeColor = dataView.getUint32(offset, true);
+                offset += 4;
+            }
+
+            if ((b & 8) !== 0) {
+                // Read additiveColor (Uint32)
+                this.additiveColor = dataView.getUint32(offset, true);
+                offset += 4;
+            }
+
+            if ((b & 16) !== 0) {
+                // Read transformation matrix (6 floats)
+                this.m00 = dataView.getFloat32(offset, true);
+                this.m01 = dataView.getFloat32(offset + 4, true);
+                this.m03 = dataView.getFloat32(offset + 8, true);
+                this.m10 = dataView.getFloat32(offset + 12, true);
+                this.m11 = dataView.getFloat32(offset + 16, true);
+                this.m13 = dataView.getFloat32(offset + 20, true);
+                offset += 24;
+            }
+
+
+            if ((b & 64) !== 0) {
+                // Read maskFlags (assuming 1 byte)
+                this.maskFlags = dataView.getUint8(offset);
+                offset += 4; // Advance by 4 bytes as per C# code
+            }
+
+            if ((b & 128) === 0) {
+                return offset;
+            }
+
+            // Read extendedFilterAndBlendState and blendMode
+            const extendedFilterAndBlendState = dataView.getUint8(offset);
+            this.blendMode = dataView.getUint8(offset + 1);
+            offset += 4;
+
+            // Check if ColorMatrixFilter flag is set
+            if ((extendedFilterAndBlendState & Animation.ExtendedFilterAndBlendState.ColorMatrixFilter) === 0) {
+                return offset;
+            }
+
+            // Read colorMatrix (5 Vector4s, each with 4 floats)
+            this.colorMatrix = [];
+            for (let i = 0; i < 5; i++) {
+                const baseOffset = offset + i * 16; // Each Vector4 is 16 bytes
+                const num = dataView.getFloat32(baseOffset, true);
+                const num2 = dataView.getFloat32(baseOffset + 4, true);
+                const num3 = dataView.getFloat32(baseOffset + 8, true);
+                const num4 = dataView.getFloat32(baseOffset + 12, true);
+                this.colorMatrix.push(new Vector4(num, num2, num3, num4));
+            }
+            offset += 80; // 5 Vector4s * 16 bytes each
+
+
+
+            return offset;
+        }
+
+        Reset() {
+            this.m00 = 1.0;
+            this.m01 = 0.0;
+            this.m03 = 0.0;
+            this.m10 = 0.0;
+            this.m11 = 1.0;
+            this.m13 = 0.0;
+            this.spriteIndex = -1;
+            this.alpha = 255; // Equivalent to byte.MaxValue
+            this.multiplicativeColor = ColorHelpers.SWFColorOpaqueWhite;
+            this.additiveColor = ColorHelpers.SWFColorTransparentBlack;
+            this.maskFlags = Animation.MaskFlags.None;
+            this.blendMode = Animation.FlashBlendMode.Normal; // Set default blend mode if applicable
+            this.colorMatrix = null;
+            this.customisationIndex = -1;
+            this.childrenRecursiveCount = 0;
+        }
+    }
+
+    const Animation = {
+        MaskFlags: {
+            None: 0,
+            // Define other mask flags
+        },
+        FlashBlendMode: {
+            Normal: 0,
+            // Define other blend modes
+        },
+        ExtendedFilterAndBlendState: {
+            None: 0,
+            ColorMatrixFilter: 1 << 0,
+            // Define other flags
+        },
+    };
+
+    class Vector4 {
+        constructor(x, y, z, w) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = w;
+        }
+    }
+
+    const ColorHelpers = {
+        SWFColorOpaqueWhite: 0xffffffff,
+        SWFColorTransparentBlack: 0x00000000,
+    };
+
+
+    function computeFrame(animation, frame, renderStates, skinAsset) {
+        let nodeCount = animation.NodeCount;
+        let bytes = animation.Data;
+        let frameDataPositions = animation.FrameDataPositions;
+
+        let dataPosition = frameDataPositions[frame];
+        vertexBuffer = [];
+        triangleIndices = [];
+
+        baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
+
+
+        const frameBounds = new Bounds(Vector2.positiveInfinity(), Vector2.negativeInfinity());
+
+        let nodesCount = nodeCount - 1;
+        while (nodesCount >= 0 && dataPosition < bytes.byteLength)
+        {
+            //console.log(dataPosition)
+            let dataView = new DataView(bytes, dataPosition);
+            // we get a ushort to get the node num
+            let nodeNum = dataView.getUint16(0, true);
+
+            dataPosition += 2;
+
+            dataPosition = renderStates[nodeNum].compute(new Uint8Array(bytes), dataPosition);
+            let renderState = renderStates[nodeNum];
+
+
+            // we have to find the skinasset.parts at index of render state of spriteIndex
+            // safely, if it's not inside the array, we skip
+            //console.log(renderStates[nodeNum].spriteIndex)
+            let part = Object.values(skinAsset.entries)[renderStates[nodeNum].spriteIndex];
+
+            if(part === undefined) {
+                nodesCount--;
+                console.log('skipping', nodeNum);
+                continue;
+            }
+
+            //console.log('rendering', nodeNum, renderState.spriteIndex, part);
+            //console.log('renderState', renderState);
+
+            for(let p in part.skinChunks.Array){
+                let skinChunk = part.skinChunks.Array[p];
+                let count = vertexBuffer.length;
+                let partBounds = transformVerticesIntoList(vertexBuffer,
+                    baseVertexBuffer,
+                    skinChunk.startVertexIndex,
+                    skinChunk.vertexCount,
+                    renderState);
+
+                frameBounds.encapsulate(partBounds);
+
+                offsetIndicesIntoList(triangleIndices,
+                    baseTriangleIndices,
+                    skinChunk.startIndexIndex,
+                    skinChunk.indexCount,
+                    count);
+            }
+
+            usedSkin.push(part);
+
+            nodesCount--;
+        }
+
+        return frameBounds;
+    }
+
+    function offsetIndicesIntoList(destination, source, startIndex, indexCount, offset) {
+        let num = startIndex + indexCount;
+        for (let i = startIndex; i < num; i++)
+        {
+            destination.push(source[i] + offset);
+        }
+    }
+
+    class Color {
+        constructor(r, g, b, a) {
+            this.r = r; // Range: approximately -1.0 to 0.992
+            this.g = g;
+            this.b = b;
+            this.a = a;
+        }
+    }
+
+    function toSignedByte(n) {
+        return n < 128 ? n : n - 256;
+    }
+
+    // ConvertSWFColor function
+    function ConvertSWFColor(red, green, blue, alpha) {
+        // Ensure inputs are in the range -128 to 127
+        red = ((red + 128) % 256) - 128;
+        green = ((green + 128) % 256) - 128;
+        blue = ((blue + 128) % 256) - 128;
+        alpha = ((alpha + 128) % 256) - 128;
+
+        // Convert to unsigned 8-bit values
+        const red8 = red & 0xFF;
+        const green8 = green & 0xFF;
+        const blue8 = blue & 0xFF;
+        const alpha8 = alpha & 0xFF;
+
+        // Combine into a 32-bit unsigned integer
+        const color = red8 | (green8 << 8) | (blue8 << 16) | (alpha8 << 24);
+
+        // Ensure the result is an unsigned 32-bit integer
+        return color >>> 0;
+    }
+
+    // ConvertFromEncodedColor function
+    function ConvertFromEncodedColor(encodedColor) {
+        // Extract the components
+        const redByte = encodedColor & 0xFF;
+        const greenByte = (encodedColor >> 8) & 0xFF;
+        const blueByte = (encodedColor >> 16) & 0xFF;
+        const alphaByte = (encodedColor >> 24) & 0xFF;
+
+        // Convert to signed bytes (-128 to 127)
+        const red = toSignedByte(redByte);
+        const green = toSignedByte(greenByte);
+        const blue = toSignedByte(blueByte);
+        const alpha = toSignedByte(alphaByte);
+
+        // Adjust to unsigned bytes (0 to 255)
+        const redU = red + 128;
+        const greenU = green + 128;
+        const blueU = blue + 128;
+        const alphaU = alpha + 128;
+
+        // Normalize components to [0, 1] range
+        const r = redU / 255.0;
+        const g = greenU / 255.0;
+        const b = blueU / 255.0;
+        const a = alphaU / 255.0;
+
+        return new Color(r, g, b, a);
+    }
+
+    function transformVertex(renderState, vertex) {
+        // Get the current position of the vertex
+        const pos = vertex.pos;
+
+        // Transform the position using the render state's transformation matrix
+        const newX = renderState.m00 * pos.x + renderState.m01 * pos.y + renderState.m03;
+        const newY = renderState.m10 * pos.x + renderState.m11 * pos.y + renderState.m13;
+
+        // Update the vertex position
+        vertex.pos.x = newX;
+        vertex.pos.y = newY;
+
+        // Convert the encoded multiplicative color to RGBA components
+        const color = ConvertFromEncodedColor(vertex.multiplicativeColor);
+
+        // Adjust the alpha component based on the render state's alpha value
+        const adjustedAlpha = color.a * (renderState.alpha / 255);
+
+        // Convert the adjusted RGBA components back to an encoded color
+        const num = ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
+
+        // Update the vertex's multiplicative color
+        vertex.multiplicativeColor = num;
+
+        // Return the modified vertex
+        return vertex;
+    }
+
+    function transformVerticesIntoList(destination, source, startVertexIndex, vertexCount, renderState) {
+        const num = startVertexIndex + vertexCount;
+        let vector = Vector2.positiveInfinity();
+        let vector2 = Vector2.negativeInfinity();
+
+        for (let i = startVertexIndex; i < num; i++) {
+            const animationGeometryVertex = transformVertex(renderState, source[i]);
+            destination.push(animationGeometryVertex);
+            vector = Vector2.Min(vector, animationGeometryVertex.pos);
+            vector2 = Vector2.Max(vector2, animationGeometryVertex.pos);
+        }
+
+        const vector3 = vector.add(vector2).multiply(0.5);
+        return new Bounds(vector3, vector2.subtract(vector3));
+    }
+
+    class Bounds {
+        constructor(center, size) {
+            this.center = center;
+            this.size = size;
+        }
+
+        // Getter for min
+        get min() {
+            const halfSize = this.size.multiply(0.5);
+            return this.center.subtract(halfSize);
+        }
+
+        // Getter for max
+        get max() {
+            const halfSize = this.size.multiply(0.5);
+            return this.center.add(halfSize);
+        }
+
+        encapsulate(bounds) {
+            // Calculate new min and max
+            const newMin = Vector2.Min(this.min, bounds.min);
+            const newMax = Vector2.Max(this.max, bounds.max);
+
+            // Update center and size
+            this.center = newMin.add(newMax).multiply(0.5);
+            this.size = newMax.subtract(newMin);
+        }
+    }
+
+    class Vector2 {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // Static method to return positive infinity vector
+        static positiveInfinity() {
+            return new Vector2(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+        }
+
+        // Static method to return negative infinity vector
+        static negativeInfinity() {
+            return new Vector2(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY);
+        }
+
+        // Static method to find the minimum of two vectors
+        static Min(a, b) {
+            return new Vector2(Math.min(a.x, b.x), Math.min(a.y, b.y));
+        }
+
+        // Static method to find the maximum of two vectors
+        static Max(a, b) {
+            return new Vector2(Math.max(a.x, b.x), Math.max(a.y, b.y));
+        }
+
+        // Method to add two vectors
+        add(other) {
+            return new Vector2(this.x + other.x, this.y + other.y);
+        }
+
+        // Method to subtract two vectors
+        subtract(other) {
+            return new Vector2(this.x - other.x, this.y - other.y);
+        }
+
+        // Method to multiply vector by scalar
+        multiply(scalar) {
+            return new Vector2(this.x * scalar, this.y * scalar);
+        }
+
+
+    }
+
+    /**
+     * Reads a signed 16-bit integer from the DataView at the specified byte offset.
+     * @param {DataView} dataView - The DataView instance.
+     * @param {number} offset - The byte offset to read from.
+     * @returns {number} The read signed 16-bit integer.
+     */
+    function readInt16(dataView, offset) {
+        return dataView.getInt16(offset, true); // Little-endian
+    }
+
+    /**
+     * Reads an unsigned 32-bit integer from the DataView at the specified byte offset.
+     * @param {DataView} dataView - The DataView instance.
+     * @param {number} offset - The byte offset to read from.
+     * @returns {number} The read unsigned 32-bit integer.
+     */
+    function readUint32(dataView, offset) {
+        return dataView.getUint32(offset, true); // Little-endian
+    }
+
+    /**
+     * Reads a 32-bit float from the DataView at the specified byte offset.
+     * @param {DataView} dataView - The DataView instance.
+     * @param {number} offset - The byte offset to read from.
+     * @returns {number} The read 32-bit float.
+     */
+    function readFloat32(dataView, offset) {
+        return dataView.getFloat32(offset, true); // Little-endian
+    }
+
+    /**
+     * Aligns the given position to the next multiple of 4.
+     * @param {number} position - The current byte position.
+     * @returns {number} The aligned byte position.
+     */
+    function alignTo4Bytes(position) {
+        return position % 4 === 0 ? position : position - (position % 4) + 4;
+    }
+
+
+    start();
+
+</script>
