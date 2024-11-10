@@ -1,7 +1,8 @@
 {
     "skinIds": [
         "1058",
-        "431"
+        "431",
+        "2793"
     ],
     "skins": {
         "1058": [
@@ -24,6 +25,21 @@
             "AnimArtwork_1"
         ],
         "431": [
+            "AnimMort_5",
+            "AnimMort_1",
+            "AnimCourse_5",
+            "AnimMarche_5",
+            "AnimCourse_1",
+            "AnimMarche_1",
+            "AnimAttaque1_1",
+            "AnimHit_1",
+            "AnimAttaque1_5",
+            "AnimHit_5",
+            "AnimStatique_1",
+            "AnimStatique_5",
+            "AnimArtwork_1"
+        ],
+        "2793": [
             "AnimMort_5",
             "AnimMort_1",
             "AnimCourse_5",

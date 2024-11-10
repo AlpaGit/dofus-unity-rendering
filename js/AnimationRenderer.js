@@ -380,13 +380,13 @@ export default class AnimationRenderer {
         AnimationRenderer.SkipToJustBeforeFrame(animation, frame, renderStates);
 
         const frameBounds = new Bounds(new Vector2(0,0), new Vector2(0,0));
+        // we have to copy it because it's modified everytime
+        // C'EST SUPER MAL OPTIMISÉ FRANCHEMENT MAIS ÇA DEMANDE UN PEU TROP DE CHANGEMENT DE MODIFIER ÇA
+        AnimationRenderer.baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
 
         let nodesCount = nodeCount - 1;
         while (nodesCount >= 0 && dataPosition < bytes.byteLength)
         {
-            // we have to copy it because it's modified everytime
-            // C'EST SUPER MAL OPTIMISÉ FRANCHEMENT MAIS ÇA DEMANDE UN PEU TROP DE CHANGEMENT DE MODIFIER ÇA
-            AnimationRenderer.baseVertexBuffer = JSON.parse(JSON.stringify(skinAsset.vertices.Array));
 
             let dataView = new DataView(bytes, dataPosition);
             // we get a ushort to get the node num
@@ -589,9 +589,12 @@ export default class AnimationRenderer {
         const newX = renderState.m00 * pos.x + renderState.m01 * pos.y + renderState.m03;
         const newY = renderState.m10 * pos.x + renderState.m11 * pos.y + renderState.m13;
 
-        // Update the vertex position
-        vertex.pos.x = newX;
-        vertex.pos.y = newY;
+        let newVertex = {
+            pos: {x: newX, y: newY},
+            uv: vertex.uv,
+            multiplicativeColor: vertex.multiplicativeColor,
+            additiveColor: vertex.additiveColor
+        }
 
         // Convert the encoded multiplicative color to RGBA components
         const color = ColorUtils.ConvertFromEncodedColor(vertex.multiplicativeColor);
@@ -600,10 +603,10 @@ export default class AnimationRenderer {
         const adjustedAlpha = color.a * (renderState.alpha / 255);
 
         // Update the vertex's multiplicative color
-        vertex.multiplicativeColor = ColorUtils.ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
+        newVertex.multiplicativeColor = ColorUtils.ConvertSWFColor(color.r, color.g, color.b, adjustedAlpha);
 
         // Return the modified vertex
-        return vertex;
+        return newVertex;
     }
 
     static transformVerticesIntoList(destination, source, startVertexIndex, vertexCount, renderState) {
