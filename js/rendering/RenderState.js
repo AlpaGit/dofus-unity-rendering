@@ -42,7 +42,7 @@ export default class RenderState {
         let v10 = dataPosition + 2;
         const v11 = (dataPosition + 2) % 4;
         if (v11 !== 0) {
-            v10 = alignTo4Bytes(v10);
+            v10 = BytesUtils.alignTo4Bytes(v10);
         }
 
         // Handle spriteIndex, customisationIndex, childrenRecursiveCount if flags 0x21 are set

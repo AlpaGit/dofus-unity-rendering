@@ -1,9 +1,26 @@
 {
     "skinIds": [
+        "104",
+        "1025",
+        "20",
         "1058",
         "431"
     ],
     "skins": {
+        "104": [
+            "AnimStatique_1",
+            "AnimMarche_1",
+            "AnimHit_1",
+            "AnimMort_1"
+        ],
+        "20": [
+            "AnimStatique_0"
+        ],
+        "1025": [
+            "FX_2",
+            "FX_1",
+            "FX_3"
+        ],
         "1058": [
             "AnimMarche_1",
             "AnimAttaque1_1",

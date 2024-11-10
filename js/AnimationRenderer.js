@@ -74,6 +74,7 @@ export default class AnimationRenderer {
     static mouseY = 0;
 
     static intervalId;
+    static ASSETS_URL = "https://unity.bubble-network.net/Bones/";
 
     static async Start(skinId, animation) {
         AnimationRenderer.reset();
@@ -101,7 +102,7 @@ export default class AnimationRenderer {
             selectedMesh = null;
         }, false);
 
-        const skinAssetDataReq = await fetch("./resources/" + skinId +"/" + skinId + "-SkinAsset.json")
+        const skinAssetDataReq = await fetch(AnimationRenderer.ASSETS_URL + skinId +"/" + skinId + "-SkinAsset.json")
         const skinAsset = await skinAssetDataReq.json();
 
         let keys = skinAsset.m_keys;
@@ -112,7 +113,8 @@ export default class AnimationRenderer {
             skinAsset.entries[keys.Array[i]] = values.Array[i];
         }
 
-        const anim = await AnimationInstance.readInstance("./resources/" + skinId + "/" + skinId + "_" + animation + ".dat");
+        console.log(AnimationRenderer.ASSETS_URL + skinId + "/" + skinId + "_" + animation + ".dat")
+        const anim = await AnimationInstance.readInstance(AnimationRenderer.ASSETS_URL + skinId + "/" + skinId + "_" + animation + ".dat");
 
         let renderStates = Array(anim.NodeCount).fill().map(() => new RenderState());
 
@@ -133,7 +135,8 @@ export default class AnimationRenderer {
         // Prepare to load the texture
         const texture = gl.createTexture();
         const image = new Image();
-        image.src = './resources/' + skinId + '/' + skinId + '.png';
+        image.crossOrigin = 'anonymous';
+        image.src = AnimationRenderer.ASSETS_URL + skinId + '/' + skinId + '-0.png';
 
         image.onload = function() {
             // Bind the texture object
