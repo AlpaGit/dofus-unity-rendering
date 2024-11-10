@@ -9,11 +9,11 @@ const start = async () => {
     let assetDescriptorData = await fetch("./resources/asset-descriptor.json");
     assetDescriptor = await assetDescriptorData.json();
 
-    assetDescriptor.skinIds.forEach(id => {
+    assetDescriptor.skinIds.forEach(asset => {
         const optionElement = document.createElement('option');
 
-        optionElement.value = id;
-        optionElement.textContent = "Unknown (" + id + ")";
+        optionElement.value = asset.skinId;
+        optionElement.textContent = asset.name + " (" + asset.skinId + ")";
 
         selectSkinId.appendChild(optionElement);
     });
