@@ -26,6 +26,6 @@ for item in all_items:
                     assetsDescriptor["skins"][id].append(anim["name"])
 
 with open("./resources/asset-descriptor.json", 'w') as file:
-    json.dump(assetsDescriptor, file, indent=4)
+    json.dump(assetsDescriptor, file, separators=(',', ':'))
 
 print(assetsDescriptor)
