@@ -20,7 +20,7 @@
   import { ref, onMounted } from 'vue'
 
   let canvas = ref<HTMLCanvasElement | null>(null)
-  let render;
+  let render: AnimationRenderer | null = null;
   const scale = ref(1);
   const scaleStep = 0.1; // Scale increment/decrement step
 
@@ -38,7 +38,7 @@
   watch(
     () => [props.skinId, props.animation],
     async () => {
-      if (render) {
+      if (render && canvas.value) {
         render.Stop()
         render = new AnimationRenderer(canvas.value, props.skinId, props.animation)
         render.setScale(scale.value); 
@@ -69,10 +69,14 @@
   };
 
   const onMouseMove = (event: WheelEvent): void => {
+    if(!render) return;
+
     render.setIsHover(true, event); 
   };
 
   const onMouseLeave = (event: WheelEvent): void => {
+    if(!render) return;
+
     render.setIsHover(false, event); 
   };
 </script>

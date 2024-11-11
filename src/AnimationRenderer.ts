@@ -45,6 +45,11 @@ export default class AnimationRenderer {
 
     scale: number = 1.0;
 
+    frameRate: number = 25;
+
+    offsetX: number = 0;
+    offsetY: number = 0;
+
     constructor(canvas: HTMLCanvasElement, skinId: number, animation: string) {
         this.canvas = canvas;
         this.gl = canvas.getContext("webgl");
@@ -56,6 +61,9 @@ export default class AnimationRenderer {
 
         this.skinId = skinId;
         this.animation = animation;
+
+        this.offsetX = this.canvas.width / 2;
+        this.offsetY = this.canvas.height / 2;
     }
 
     public async Initialize(){
@@ -64,7 +72,23 @@ export default class AnimationRenderer {
             return;
         }
 
-        const skinAssetDataReq = await fetch(AnimationRenderer.ASSETS_URL + this.skinId + "/" + this.skinId + "-SkinAsset.json")
+        const animatedDefinitionReq = await fetch(AnimationRenderer.ASSETS_URL + this.skinId + "/" + this.skinId + "-AnimatedObjectDefinition.json");
+        const animatedDefinitionRaw = (await animatedDefinitionReq.text()).replace(
+            /:\s*(-?\d{16,})(?=[,\}\]])/g,
+            ': "$1"' // Wrap the number in quotes
+        );
+
+        const animatedDefinition = JSON.parse(animatedDefinitionRaw);
+
+        if(animatedDefinition === null) {
+            console.error("Animated definition not loaded.");
+            return;
+        }
+
+        this.frameRate = animatedDefinition.defaultFrameRate;
+
+
+        const skinAssetDataReq = await fetch(AnimationRenderer.ASSETS_URL + this.skinId + "/" + this.skinId + "-" + animatedDefinition.boneAsset.m_PathID + "-SkinAsset.json")
         this.skinAsset = await skinAssetDataReq.json();
 
         if(this.skinAsset === null) {
@@ -90,7 +114,6 @@ export default class AnimationRenderer {
         // just copy
         this.baseVertexBuffer = JSON.parse(JSON.stringify(this.vertexBuffer));
         this.baseTriangleIndices = JSON.parse(JSON.stringify(this.triangleIndices));
-
 
         const vShader = AnimationRenderer.compileShader(this.gl, vertexShader, this.gl.VERTEX_SHADER);
         const fShader = AnimationRenderer.compileShader(this.gl, fragmentShader, this.gl.FRAGMENT_SHADER);
@@ -145,7 +168,6 @@ export default class AnimationRenderer {
 
         let currentFrame = 0;
 
-        /* tslint:disable-next-line */
         this.intervalId = setInterval(() => {
             if(this.anim == null) {
                 return;
@@ -158,7 +180,7 @@ export default class AnimationRenderer {
 
             const bounds = this.computeFrame(currentFrame);
             this.render(bounds);
-        }, 1000 / 30) as any;
+        }, 1000 / this.frameRate) as any;
 
     }
     
@@ -223,11 +245,7 @@ export default class AnimationRenderer {
         // this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
         if (this.isMouseOverAnimation(bounds, this.scale)) {
-            console.log('Mouse is over the animation!');
-            for(let meshKey in this.meshes) {
-                const mesh = this.meshes[meshKey];
-                this.renderOutline(mesh);
-            }
+            this.renderShadow();
         }
 
         this.gl.uniform1i(this.gl.getUniformLocation(this.shaderProgram, 'uIsOutline'), 0);
@@ -306,8 +324,8 @@ export default class AnimationRenderer {
 
             // Bind index buffer
             this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-            this.gl.uniform2fv(uTranslation, [this.canvas.width / 2, this.canvas.height / 2]);
+            this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
+            this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
 
             // Draw the asset
             this.gl.drawElements(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0);
@@ -365,6 +383,7 @@ export default class AnimationRenderer {
             for(let p in part.skinChunks.Array){
                 let skinChunk = part.skinChunks.Array[p];
                 const newVertices: Vertex[] = [];
+                let count = this.vertexBuffer.length;
 
                 let partBounds = this.transformVerticesIntoList(newVertices,
                     this.baseVertexBuffer,
@@ -383,7 +402,11 @@ export default class AnimationRenderer {
                     skinChunk.indexCount,
                     /*count*/ 0);
 
-                this.triangleIndices = this.triangleIndices.concat(newTriangleIndices);
+                this.offsetIndicesIntoList(this.triangleIndices,
+                    this.baseTriangleIndices,
+                    skinChunk.startIndexIndex,
+                    skinChunk.indexCount,
+                    count);
 
                 let mesh = {
                     nodeNum: nodeNum,
@@ -522,10 +545,10 @@ export default class AnimationRenderer {
 
     isMouseOverAnimation(boundingBox: Bounds, scale: number) {
         // Apply scaling and translation to the bounding box
-        const transformedMinX = boundingBox.minX * scale + 400; // 400 is uTranslation.x
-        const transformedMinY = boundingBox.minY * scale + 250; // 250 is uTranslation.y
-        const transformedMaxX = boundingBox.maxX * scale + 400;
-        const transformedMaxY = boundingBox.maxY * scale + 250;
+        const transformedMinX = boundingBox.minX * scale + this.offsetX;
+        const transformedMinY = boundingBox.minY * scale + this.offsetY;
+        const transformedMaxX = boundingBox.maxX * scale + this.offsetX;
+        const transformedMaxY = boundingBox.maxY * scale + this.offsetY;
         // Check if mouse coordinates are within the transformed bounding box
         return (
             this.mouseX >= transformedMinX &&
@@ -541,12 +564,9 @@ export default class AnimationRenderer {
      * @param {WebGLProgram} shaderProgram - The shader program.
      */
     /**
-     * Renders a blurred outline around the selected mesh.
-     * @param {Object} mesh - The selected mesh object.
-     * @param {WebGLProgram} shaderProgram - The shader program.
-     * @param {WebGLTexture} texture - The texture to use.
+     * Renders the shadow of the selected mesh.
      */
-    renderOutline(mesh: Mesh) {
+    renderShadow() {
         if(this.gl === null) {
             console.error("WebGL not supported.");
             return;
@@ -563,86 +583,94 @@ export default class AnimationRenderer {
         const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aAdditiveColor');
         const uTranslation = this.gl.getUniformLocation(this.shaderProgram, 'uTranslation');
         const uScaleLocation = this.gl.getUniformLocation(this.shaderProgram, 'uScale');
-        // Define outline color (e.g., semi-transparent black)
-        const outlineColor = [0.0, 0.0, 0.0, 0.3]; // RGBA
+
+        const shadowColor = [0.0, 0.0, 0.0, 0.3]; // RGBA
+
         // Define number of blur passes
-        const blurPasses = 4;
-        const blurScaleStep = 0.10; // Scale increment per pass
-        for (let i = 1; i <= blurPasses; i++) {
-            // Create buffers for outline
-            const outlinePositionBuffer = this.gl.createBuffer();
-            const outlineIndexBuffer = this.gl.createBuffer();
-            const outlineTexCoordBuffer = this.gl.createBuffer();
-            const outlineMultiplicativeColorBuffer = this.gl.createBuffer();
-            const outlineAdditiveColorBuffer = this.gl.createBuffer();
-            // Prepare outline vertices (scaled up)
-            const outlinePositions: Array<number> = [];
-            const outlineTexCoords: Array<number> = [];
-            const outlineMultiplicativeColors: Array<number> = [];
-            const outlineAdditiveColors: Array<number> = [];
-            mesh.vertex.forEach(vertex => {
-                // Apply additional scaling for outline
-                const scaledX = vertex.pos.x * (1 + blurScaleStep * i);
-                const scaledY = vertex.pos.y * (1 + blurScaleStep * i);
-                // we need to
-                outlinePositions.push(scaledX, scaledY);
-                outlineTexCoords.push(vertex.uv.x, (1 - vertex.uv.y));
-                // Set multiplicative color to the outline color
-                outlineMultiplicativeColors.push(
-                    outlineColor[0],
-                    outlineColor[1],
-                    outlineColor[2],
-                    outlineColor[3]
-                );
-                // No additive color for outline
-                outlineAdditiveColors.push(
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0
-                );
-            });
-            const outlineIndices = mesh.indices;
-            // Bind and upload outline buffers
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlinePositionBuffer);
-            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlinePositions), this.gl.STATIC_DRAW);
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineTexCoordBuffer);
-            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineTexCoords), this.gl.STATIC_DRAW);
-            this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
-            this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(outlineIndices), this.gl.STATIC_DRAW);
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineMultiplicativeColorBuffer);
-            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineMultiplicativeColors), this.gl.STATIC_DRAW);
-            this.gl.enableVertexAttribArray(aMultiplicativeColor);
-            this.gl.vertexAttribPointer(aMultiplicativeColor, 4, this.gl.FLOAT, false, 0, 0);
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineAdditiveColorBuffer);
-            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineAdditiveColors), this.gl.STATIC_DRAW);
-            this.gl.enableVertexAttribArray(aAdditiveColor);
-            this.gl.vertexAttribPointer(aAdditiveColor, 4, this.gl.FLOAT, false, 0, 0);
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlinePositionBuffer);
-            this.gl.enableVertexAttribArray(aPosition);
-            this.gl.vertexAttribPointer(aPosition, 2, this.gl.FLOAT, false, 0, 0);
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineTexCoordBuffer);
-            this.gl.enableVertexAttribArray(aTexCoord);
-            this.gl.vertexAttribPointer(aTexCoord, 2, this.gl.FLOAT, false, 0, 0);
-            this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
-            // Set translation same as original mesh
-            this.gl.uniform2fv(uTranslation, [400, 250]);
-            // Set the scale uniform same as original mesh
-            this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
-            // Set blending for the outline (additive blending for blur effect)
-            this.gl.enable(this.gl.BLEND);
-            this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
-            // Draw the outline
-            this.gl.drawElements(this.gl.TRIANGLES, outlineIndices.length, this.gl.UNSIGNED_SHORT, 0);
-            // Re-enable additive color for subsequent meshes
-            this.gl.enableVertexAttribArray(aAdditiveColor);
-            this.gl.vertexAttribPointer(aAdditiveColor, 4, this.gl.FLOAT, false, 0, 0);
-            // Clean up outline buffers
-            this.gl.deleteBuffer(outlinePositionBuffer);
-            this.gl.deleteBuffer(outlineTexCoordBuffer);
-            this.gl.deleteBuffer(outlineIndexBuffer);
-            this.gl.deleteBuffer(outlineMultiplicativeColorBuffer);
-            this.gl.deleteBuffer(outlineAdditiveColorBuffer);
-        }
+        // Create buffers for outline
+        const positionBuffer = this.gl.createBuffer();
+        const indexBuffer = this.gl.createBuffer();
+        const textCoordBuffer = this.gl.createBuffer();
+        const multiplicativeColorBuffer = this.gl.createBuffer();
+        const additiveColorBuffer = this.gl.createBuffer();
+
+        const positions: Array<number> = [];
+        const textCoords: Array<number> = [];
+        const multiplicativeColors: Array<number> = [];
+        const additiveColors: Array<number> = [];
+        let indices: Array<number> = [];
+
+
+        this.vertexBuffer.forEach(vertex => {
+            // Apply additional scaling for outline
+            const scaledX = vertex.pos.x;
+            const scaledY = vertex.pos.y;
+            // we need to
+            positions.push(scaledX, scaledY);
+            textCoords.push(vertex.uv.x, (1 - vertex.uv.y));
+            // Set multiplicative color to the outline color
+            multiplicativeColors.push(
+                shadowColor[0],
+                shadowColor[1],
+                shadowColor[2],
+                shadowColor[3]
+            );
+            // No additive color for outline
+            additiveColors.push(
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            );
+        });
+
+        indices = this.triangleIndices;
+
+        // Bind and upload outline buffers
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, textCoordBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(textCoords), this.gl.STATIC_DRAW);
+
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), this.gl.STATIC_DRAW);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, multiplicativeColorBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(multiplicativeColors), this.gl.STATIC_DRAW);
+
+        this.gl.enableVertexAttribArray(aMultiplicativeColor);
+        this.gl.vertexAttribPointer(aMultiplicativeColor, 4, this.gl.FLOAT, false, 0, 0);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, additiveColorBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(additiveColors), this.gl.STATIC_DRAW);
+
+        this.gl.enableVertexAttribArray(aAdditiveColor);
+        this.gl.vertexAttribPointer(aAdditiveColor, 4, this.gl.FLOAT, false, 0, 0);
+
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.enableVertexAttribArray(aPosition);
+        this.gl.vertexAttribPointer(aPosition, 2, this.gl.FLOAT, false, 0, 0);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, textCoordBuffer);
+        this.gl.enableVertexAttribArray(aTexCoord);
+        this.gl.vertexAttribPointer(aTexCoord, 2, this.gl.FLOAT, false, 0, 0);
+
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+        // Set translation same as original mesh
+        this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
+        // Set the scale uniform same as original mesh
+        this.gl.uniform2f(uScaleLocation, this.scale, -this.scale);
+
+        // Draw
+        this.gl.drawElements(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0);
+
+        // Clean up buffers
+        this.gl.deleteBuffer(positionBuffer);
+        this.gl.deleteBuffer(textCoordBuffer);
+        this.gl.deleteBuffer(indexBuffer);
+        this.gl.deleteBuffer(multiplicativeColorBuffer);
+        this.gl.deleteBuffer(additiveColorBuffer);
     }
 }
