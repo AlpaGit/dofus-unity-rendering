@@ -1,5 +1,6 @@
 <template>
-  <canvas 
+  <div class="container">
+    <canvas 
       @wheel="onWheel" 
       @mousemove="onMouseMove" 
       @mouseleave="onMouseLeave" 
@@ -7,6 +8,11 @@
       width="800" 
       height="600">
       </canvas>
+      
+    <ZoomController class="zoomControl" 
+      @change="handleZoomControl"
+      :scale="scale"/>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -79,8 +85,29 @@
 
     render.setIsHover(false, event); 
   };
+
+  const handleZoomControl = (modifier: number): void => {
+    if (modifier > 0) {
+        scale.value += scaleStep;
+        if (scale.value > 5.0) scale.value = 5.0;
+    } else {
+        scale.value -= scaleStep;
+        if (scale.value < 0.1) scale.value = 0.1;
+    }
+
+    render.setScale(scale.value); 
+  };
 </script>
 
 
 <style scoped lang="scss">
+  .container {
+    position: relative;
+  }
+  .zoomControl {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+  }
 </style>

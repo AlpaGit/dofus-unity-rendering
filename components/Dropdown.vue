@@ -145,7 +145,7 @@
     overflow: hidden;
     border: solid 1px #c9c9c9;
     padding: 0.5rem;
-
+    z-index: 999;
 }
 
 .dropdown-search {

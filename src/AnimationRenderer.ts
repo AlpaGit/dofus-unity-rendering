@@ -285,7 +285,7 @@ export default class AnimationRenderer {
 
         // Set up the projection matrix
 
-        console.log(projectionMatrix)
+        // console.log(projectionMatrix)
         //this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
 
         // Clear the canvas
