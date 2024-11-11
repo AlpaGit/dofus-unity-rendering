@@ -6,6 +6,9 @@ import Vector2 from './utils/Vector2';
 
 import fragmentShader from './shaders/fragment.glsl?raw';
 import vertexShader from './shaders/vertex.glsl?raw';
+import fragmentBoxShader from './shaders/fragmentBox.glsl?raw';
+import vertexBoxShader from './shaders/vertexBox.glsl?raw';
+
 import type SkinAsset from "~/src/definitions/SkinAsset";
 import type { Vertex } from "~/src/definitions/SkinAsset";
 import type { SkinAssetValue } from "~/src/definitions/SkinAsset";
@@ -41,6 +44,8 @@ export default class AnimationRenderer {
     renderStates: RenderState[] = [];
 
     shaderProgram: WebGLProgram | null = null;
+    shaderProgramBox: WebGLProgram | null = null;
+
     webglTexture: WebGLTexture | null = null;
 
     scale: number = 1.0;
@@ -59,7 +64,7 @@ export default class AnimationRenderer {
 
     constructor(canvas: HTMLCanvasElement, skinId: number, animation: string) {
         this.canvas = canvas;
-        this.gl = canvas.getContext("webgl");
+        this.gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
 
         if (!this.gl) {
             console.error("WebGL not supported.");
@@ -131,7 +136,17 @@ export default class AnimationRenderer {
             return;
         }
 
+        const vShaderBox = AnimationRenderer.compileShader(this.gl, vertexBoxShader, this.gl.VERTEX_SHADER);
+        const fShaderBox = AnimationRenderer.compileShader(this.gl, fragmentBoxShader, this.gl.FRAGMENT_SHADER);
+
+        // check for errors
+        if (!vShaderBox || !fShaderBox) {
+            console.error("Failed to compile shaders.");
+            return;
+        }
+
         this.shaderProgram = AnimationRenderer.createProgram(this.gl, vShader, fShader);
+        this.shaderProgramBox = AnimationRenderer.createProgram(this.gl, vShaderBox, fShaderBox);
 
         if (!this.shaderProgram) {
             console.error("Failed to create shader program.");
@@ -157,7 +172,11 @@ export default class AnimationRenderer {
             // Set texture parameters
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+            gl.disable(gl.POLYGON_OFFSET_FILL);
+            gl.disable(gl.CULL_FACE);
 
             // Upload the image into the texture
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA,
@@ -171,6 +190,9 @@ export default class AnimationRenderer {
             console.error("Animation instance not loaded.");
             return;
         }
+
+        //this.showFighterIndicator();
+        //return;
 
         this.preRender();
 
@@ -240,7 +262,7 @@ export default class AnimationRenderer {
 
     }
 
-    private setProjectionMatrix() {
+    private setProjectionMatrix(uMatrix: WebGLUniformLocation | null) {
         if(!this.gl || !this.shaderProgram || !this.canvas)
             return;
 
@@ -281,7 +303,7 @@ export default class AnimationRenderer {
         uMatrixArray[14] = 0.0; // ca.z (Blue addition)
         uMatrixArray[15] = 0.0; // ca.w (Alpha addition)
 
-        this.gl.uniformMatrix4fv(this.uMatrix, false, uMatrixArray);
+        this.gl.uniformMatrix4fv(uMatrix, false, uMatrixArray);
     }
 
     render(bounds: Bounds) {
@@ -290,20 +312,176 @@ export default class AnimationRenderer {
             return;
         }
 
-        this.setProjectionMatrix();
+        this.setProjectionMatrix(this.uMatrix);
 
-        if (this.isMouseOverAnimation(bounds, this.scale)) {
-            this.renderShadow();
-        }
+        const highlighted = this.isMouseOverAnimation(bounds, this.scale);
 
-        this.renderMeshes();
+
+        this.renderMeshes(highlighted);
     }
 
-    private renderMeshes() {
+    showFighterIndicator(){
+        if(this.gl == null || this.shaderProgramBox == null || this.canvas == null) {
+            console.error("WebGL not supported or shader program not loaded.");
+            return;
+        }
+
+        this.gl.useProgram(this.shaderProgramBox);
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+
+        let aPosition = this.gl.getAttribLocation(this.shaderProgramBox, 'aPosition');
+        let aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgramBox, 'aColorMul');
+        let aAdditiveColor = this.gl.getAttribLocation(this.shaderProgramBox, 'aColorAdd');
+        let uMatrix = this.gl.getUniformLocation(this.shaderProgramBox, 'uMatrix');
+
+        if(aPosition === -1 || aMultiplicativeColor === -1 || aAdditiveColor === -1 || uMatrix === null) {
+            console.error("Failed to get attribute or uniform locations.");
+            return;
+        }
+
+        let vertices = [
+            { x: -40, y: 60, r: 1.0, g: 0.0, b: 0.0, a: 1.0 }, // 0 // outside
+            { x:  40, y: 60, r: 1.0, g: 0.0, b: 0.0, a: 1.0 }, // 1 // outside
+            { x: -30, y: 50, r: 1.0, g: 1.0, b: 0.0, a: 0.3 }, // 2
+            { x:  30, y: 50, r: 1.0, g: 1.0, b: 0.0, a: 0.3 }, // 3
+            { x: -40, y: 40, r: 1.0, g: 0.0, b: 0.0, a: 1.0 }, // 4 // outside
+            { x: -30, y: 45, r: 1.0, g: 1.0, b: 0.0, a: 0.3 }, // 5
+            { x:  30, y: 45, r: 1.0, g: 1.0, b: 0.0, a: 0.3 }, // 6
+            { x:  40, y: 40, r: 1.0, g: 0.0, b: 0.0, a: 1.0 }, // 7 // outside
+            { x:   0, y: 10, r: 1.0, g: 1.0, b: 0.0, a: 0.5 }, // 8
+            { x:   0, y:  0, r: 1.0, g: 0.0, b: 0.0, a: 1.0 }  // 9 // outside
+        ];
+
+        // triangles are defined CCW
+        let triangles = [
+            [1, 0, 2], // A
+            [2, 0, 4], // B
+            [4, 5, 2], // C
+            [8, 5, 4], // D
+            [4, 9, 8], // E
+            [8, 9, 7], // F
+            [7, 6, 8], // G
+            [3, 6, 7], // H
+            [7, 1, 3], // I
+            [2, 3, 1], // J
+            [3, 2, 5], // K
+            [5, 6, 3], // L
+            [5, 8, 6]  // M
+        ];
+
+        const indices = new Uint16Array(triangles.length * 3);
+
+        let globalIndices = 0;
+
+        for (let i = 0; i < triangles.length; i++) {
+            indices[i * 3] = triangles[i][0] + globalIndices++;
+            indices[i * 3 + 1] = triangles[i][1] + globalIndices++;
+            indices[i * 3 + 2] = triangles[i][2] + globalIndices++;
+        }
+
+        const verticesBuffer = new Float32Array(vertices.length * 5);
+        const colorsBuffer = new Float32Array(vertices.length * 4);
+
+        this.loadIndicator(vertices, triangles, verticesBuffer, colorsBuffer);
+
+        const positionBuffer = this.gl.createBuffer();
+        const indexBuffer = this.gl.createBuffer();
+        const multiplicativeColorBuffer = this.gl.createBuffer();
+        const additiveColorBuffer = this.gl.createBuffer();
+
+
+        this.setProjectionMatrix(uMatrix);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, verticesBuffer, this.gl.STATIC_DRAW);
+        this.gl.enableVertexAttribArray(aPosition);
+        this.gl.vertexAttribPointer(aPosition, 2, this.gl.FLOAT, false, 5 * 4, 0);
+
+        const colorOffset = 2 * 4;
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, multiplicativeColorBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, colorsBuffer, this.gl.STATIC_DRAW);
+        this.gl.enableVertexAttribArray(aMultiplicativeColor);
+        this.gl.vertexAttribPointer(aMultiplicativeColor, 4, this.gl.FLOAT, false, 5 * 4, colorOffset);
+
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, additiveColorBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, colorsBuffer, this.gl.STATIC_DRAW);
+        this.gl.enableVertexAttribArray(aAdditiveColor);
+        this.gl.vertexAttribPointer(aAdditiveColor, 3, this.gl.FLOAT, false, 0, 0);
+
+        // Draw the asset
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, indices, this.gl.STATIC_DRAW);
+
+        this.gl.drawElements(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0);
+
+        console.log("showFighterIndicator");
+        console.log(verticesBuffer);
+        console.log(indices);
+
+
+    }
+
+    loadIndicator(vertices: {
+        x: number,
+        y: number,
+        r: number,
+        g: number,
+        b: number,
+        a: number
+    }[],
+                  triangles: number[][],
+                  vertexBuffer: Float32Array,
+                  colorBuffer: Float32Array) {
+        const VERTICES_PER_TRIANGLE = 3;
+        const VERTEX_BUFFER_STRIDE = 5;
+
+        let minX = Infinity;
+        let maxX = -Infinity;
+
+        let minY = Infinity;
+        let maxY = -Infinity;
+
+        for (let t = 0; t < triangles.length; t++) {
+            for (let v = 0; v < VERTICES_PER_TRIANGLE; v++) {
+                let bufferIndex = (t * VERTICES_PER_TRIANGLE + v) * VERTEX_BUFFER_STRIDE;
+
+                let vertex = vertices[triangles[t][v]];
+                let x = vertex.x;
+                let y = vertex.y;
+
+                let r = Math.max(-128, Math.min(127, vertex.r * 64));
+                let g = Math.max(-128, Math.min(127, (1.0) * 64));
+                let b = Math.max(-128, Math.min(127, vertex.b * 64));
+                let a = Math.max(-128, Math.min(127, (1.0 && vertex.a) * 64));
+                let color = ((a << 24) & 0xff000000) + ((b << 16) & 0xff0000) + ((g << 8) & 0xff00) + (r & 0xff);
+
+                vertexBuffer[bufferIndex]     = x;
+                vertexBuffer[bufferIndex + 1] = y;
+
+                colorBuffer[bufferIndex  + 3]  = color;
+
+                if (minX > x) { minX = x; } else if (maxX < x) { maxX = x; }
+                if (minY > y) { minY = y; } else if (maxY < y) { maxY = y; }
+            }
+        }
+    };
+
+
+    private clamp(value: number, min: number, max: number) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    private renderMeshes(highlighted: boolean) {
         if(this.gl == null || this.shaderProgram == null || this.webglTexture == null || this.canvas == null) {
             console.error("WebGL not supported or shader program not loaded.");
             return;
         }
+
+        this.gl.useProgram(this.shaderProgram);
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
         const positions: number[] = [];
         const texCoords: number[] = [];
@@ -316,17 +494,34 @@ export default class AnimationRenderer {
 
             mesh.vertex.forEach(vertex => {
                 positions.push(vertex.pos.x, vertex.pos.y);
-                texCoords.push(vertex.uv.x, 1.0 - vertex.uv.y);
+                texCoords.push(vertex.uv.x, this.clamp((1-vertex.uv.y), 0, 1));
 
                 const multiplicativeColor = ColorUtils.ConvertFromEncodedColor(vertex.multiplicativeColor);
                 const additiveColor = ColorUtils.ConvertFromEncodedColor(vertex.additiveColor);
 
                 // Push RGBA components normalized to [0,1]
+
+                let tint = [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+
+                if(highlighted) {
+                    tint = [
+                        1.7,
+                        1.7,
+                        1.7,
+                        1.0
+                    ]
+                }
+
                 multiplicativeColors.push(
-                    multiplicativeColor.r / 2,
-                    multiplicativeColor.g / 2,
-                    multiplicativeColor.b / 2,
-                    multiplicativeColor.a / 2
+                    (multiplicativeColor.r / 2) * tint[0],
+                    (multiplicativeColor.g / 2) * tint[1],
+                    (multiplicativeColor.b / 2) * tint[2],
+                    (multiplicativeColor.a / 2) * tint[3]
                 );
 
                 additiveColors.push(
@@ -354,15 +549,6 @@ export default class AnimationRenderer {
         const additiveColorBuffer = this.gl.createBuffer();
 
 
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW);
-
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, texCoordBuffer);
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(texCoords), this.gl.STATIC_DRAW);
-
-        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), this.gl.STATIC_DRAW);
-
         // Bind and upload multiplicative color data
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, multiplicativeColorBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(multiplicativeColors), this.gl.STATIC_DRAW);
@@ -377,16 +563,19 @@ export default class AnimationRenderer {
 
         // Bind position buffer
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(positions), this.gl.STATIC_DRAW);
         this.gl.enableVertexAttribArray(this.aPosition);
         this.gl.vertexAttribPointer(this.aPosition, 2, this.gl.FLOAT, false, 0, 0);
 
         // Bind texture coordinate buffer
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, texCoordBuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(texCoords), this.gl.STATIC_DRAW);
         this.gl.enableVertexAttribArray(this.aTexCoord);
         this.gl.vertexAttribPointer(this.aTexCoord, 2, this.gl.FLOAT, false, 0, 0);
 
         // Bind index buffer
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+        this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), this.gl.STATIC_DRAW);
 
         //this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
         //this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
