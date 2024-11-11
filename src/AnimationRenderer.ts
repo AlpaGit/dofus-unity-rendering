@@ -220,25 +220,73 @@ export default class AnimationRenderer {
         // Get attribute locations
         const aPosition = this.gl.getAttribLocation(this.shaderProgram, 'aPosition');
         const aTexCoord = this.gl.getAttribLocation(this.shaderProgram, 'aTexCoord');
-        const aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgram, 'aMultiplicativeColor');
-        const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aAdditiveColor');
+        const aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgram, 'aColorMul');
+        const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aColorAdd');
 
         // Get uniform locations
-        const uProjectionMatrix = this.gl.getUniformLocation(this.shaderProgram, 'uProjectionMatrix');
-        const uTranslation = this.gl.getUniformLocation(this.shaderProgram, 'uTranslation');
+        // Create the uMatrix as a Float32Array of length 16 (mat4)
+        const uMatrixArray = new Float32Array(16);
+
+        // Set up your orthographic projection matrix
+        const projectionMatrix = Mat4.create();
+        Mat4.ortho(
+            projectionMatrix,
+            -this.canvas.width / 2, this.canvas.width / 2,
+            -this.canvas.height / 2, this.canvas.height / 2,
+            -1, 1
+        );
+
+        // Create a scaling matrix
+        const scaleMatrix = Mat4.create();
+        Mat4.identity(scaleMatrix);
+        Mat4.scale(scaleMatrix, scaleMatrix, new Float32Array([this.scale, this.scale, 1.0, 1.0]));
+
+        // Multiply the projection matrix by the scaling matrix
+        const scaledProjectionMatrix = Mat4.create();
+        Mat4.multiply(scaledProjectionMatrix, projectionMatrix, scaleMatrix);
+
+
+        // Copy the projection matrix into uMatrix[0] and uMatrix[1]
+        // Since WebGL uses column-major order, adjust accordingly
+        uMatrixArray.set(scaledProjectionMatrix.subarray(0, 4), 0);   // uMatrix[0 - 4]
+        uMatrixArray.set(scaledProjectionMatrix.subarray(4, 8), 4);   // uMatrix[4 - 8]
+
+        // Set the color multiplication vector cm in uMatrix[2]
+        uMatrixArray[8] = 1.0;  // cm.x (Red multiplier)
+        uMatrixArray[9] = 1.0;  // cm.y (Green multiplier)
+        uMatrixArray[10] = 1.0; // cm.z (Blue multiplier)
+        uMatrixArray[11] = 1.0; // cm.w (Alpha multiplier)
+
+        // Set the color addition vector ca in uMatrix[3]
+        uMatrixArray[12] = 0.0; // ca.x (Red addition)
+        uMatrixArray[13] = 0.0; // ca.y (Green addition)
+        uMatrixArray[14] = 0.0; // ca.z (Blue addition)
+        uMatrixArray[15] = 0.0; // ca.w (Alpha addition)
+
+
+        const uMatrix = this.gl.getUniformLocation(this.shaderProgram, 'uMatrix');
         const uTexture = this.gl.getUniformLocation(this.shaderProgram, 'uTexture');
-        const uScaleLocation = this.gl.getUniformLocation(this.shaderProgram, 'uScale');
+
+        this.gl.uniformMatrix4fv(uMatrix, false, uMatrixArray);
 
         // Set the texture uniform
         this.gl.activeTexture(this.gl.TEXTURE0);
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.webglTexture);
         this.gl.uniform1i(uTexture, 0);
 
+        let minFilter = this.gl.LINEAR;
+        let magFilter = this.gl.LINEAR;
+
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, minFilter);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, magFilter);
+
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+
         // Set up the projection matrix
-        const projectionMatrix = Mat4.create();
-        Mat4.ortho(projectionMatrix, 0, this.canvas.width, 0, this.canvas.height, -1, 1);
-        this.gl.uniformMatrix4fv(uProjectionMatrix, false, projectionMatrix);
-        this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
+
+        console.log(projectionMatrix)
+        //this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
 
         // Clear the canvas
         // this.gl.clearColor(255.0, 255.0, 255.0, 1.0);
@@ -247,9 +295,6 @@ export default class AnimationRenderer {
         if (this.isMouseOverAnimation(bounds, this.scale)) {
             this.renderShadow();
         }
-
-        this.gl.uniform1i(this.gl.getUniformLocation(this.shaderProgram, 'uIsOutline'), 0);
-        this.gl.uniform1f(this.gl.getUniformLocation(this.shaderProgram, 'uOutlineScale'), 1.0);
 
         for(let meshKey in this.meshes) {
             const mesh = this.meshes[meshKey];
@@ -268,10 +313,10 @@ export default class AnimationRenderer {
 
                 // Push RGBA components normalized to [0,1]
                 multiplicativeColors.push(
-                    multiplicativeColor.r,
-                    multiplicativeColor.g,
-                    multiplicativeColor.b,
-                    multiplicativeColor.a
+                    multiplicativeColor.r / 2,
+                    multiplicativeColor.g / 2,
+                    multiplicativeColor.b / 2,
+                    multiplicativeColor.a / 2
                 );
 
                 additiveColors.push(
@@ -324,8 +369,9 @@ export default class AnimationRenderer {
 
             // Bind index buffer
             this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-            this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
-            this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
+
+            //this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
+            //this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
 
             // Draw the asset
             this.gl.drawElements(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0);
@@ -579,10 +625,10 @@ export default class AnimationRenderer {
 
         const aPosition = this.gl.getAttribLocation(this.shaderProgram, 'aPosition');
         const aTexCoord = this.gl.getAttribLocation(this.shaderProgram, 'aTexCoord');
-        const aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgram, 'aMultiplicativeColor');
-        const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aAdditiveColor');
-        const uTranslation = this.gl.getUniformLocation(this.shaderProgram, 'uTranslation');
-        const uScaleLocation = this.gl.getUniformLocation(this.shaderProgram, 'uScale');
+        const aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgram, 'aColorMul');
+        const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aColorAdd');
+        //const uTranslation = this.gl.getUniformLocation(this.shaderProgram, 'uTranslation');
+        //const uScaleLocation = this.gl.getUniformLocation(this.shaderProgram, 'uScale');
 
         const shadowColor = [0.0, 0.0, 0.0, 0.3]; // RGBA
 
@@ -659,9 +705,9 @@ export default class AnimationRenderer {
 
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
         // Set translation same as original mesh
-        this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
+        //this.gl.uniform2fv(uTranslation, [this.offsetX, this.offsetY]);
         // Set the scale uniform same as original mesh
-        this.gl.uniform2f(uScaleLocation, this.scale, -this.scale);
+        //this.gl.uniform2f(uScaleLocation, this.scale, -this.scale);
 
         // Draw
         this.gl.drawElements(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0);
