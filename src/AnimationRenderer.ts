@@ -161,6 +161,29 @@ export default class AnimationRenderer {
         }, 1000 / 30) as any;
 
     }
+    
+    public Stop(){
+        if (this.intervalId !== null) {
+            clearInterval(this.intervalId);
+        }
+    }
+
+    public setScale(scale: number) {
+        this.scale = scale;
+    }
+
+    public setIsHover(hovered: boolean, event: MouseEvent) {
+        if (this.canvas) {
+            if (hovered) {
+                const rect = this.canvas.getBoundingClientRect();
+                this.mouseX = event.clientX - rect.left;
+                this.mouseY = rect.height - (event.clientY - rect.top); // Flip Y-axis to match WebGL coordinates
+            } else {
+                // this.selectedMesh = null;
+            }
+        }
+        
+    }
 
     render(bounds: Bounds) {
         if(this.gl == null || this.shaderProgram == null || this.webglTexture == null || this.canvas == null) {
@@ -196,8 +219,16 @@ export default class AnimationRenderer {
         this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
 
         // Clear the canvas
-        this.gl.clearColor(255.0, 255.0, 255.0, 1.0);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+        // this.gl.clearColor(255.0, 255.0, 255.0, 1.0);
+        // this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
+        if (this.isMouseOverAnimation(bounds, this.scale)) {
+            console.log('Mouse is over the animation!');
+            for(let meshKey in this.meshes) {
+                const mesh = this.meshes[meshKey];
+                this.renderOutline(mesh);
+            }
+        }
 
         this.gl.uniform1i(this.gl.getUniformLocation(this.shaderProgram, 'uIsOutline'), 0);
         this.gl.uniform1f(this.gl.getUniformLocation(this.shaderProgram, 'uOutlineScale'), 1.0);
@@ -487,5 +518,131 @@ export default class AnimationRenderer {
         }
 
         return program;
+    }
+
+    isMouseOverAnimation(boundingBox: Bounds, scale: number) {
+        // Apply scaling and translation to the bounding box
+        const transformedMinX = boundingBox.minX * scale + 400; // 400 is uTranslation.x
+        const transformedMinY = boundingBox.minY * scale + 250; // 250 is uTranslation.y
+        const transformedMaxX = boundingBox.maxX * scale + 400;
+        const transformedMaxY = boundingBox.maxY * scale + 250;
+        // Check if mouse coordinates are within the transformed bounding box
+        return (
+            this.mouseX >= transformedMinX &&
+            this.mouseX <= transformedMaxX &&
+            this.mouseY >= transformedMinY &&
+            this.mouseY <= transformedMaxY
+        );
+    }
+
+    /**
+     * Renders a blurred outline around the entire animation.
+     * @param {Object} boundingBox - The overall bounding box of the animation.
+     * @param {WebGLProgram} shaderProgram - The shader program.
+     */
+    /**
+     * Renders a blurred outline around the selected mesh.
+     * @param {Object} mesh - The selected mesh object.
+     * @param {WebGLProgram} shaderProgram - The shader program.
+     * @param {WebGLTexture} texture - The texture to use.
+     */
+    renderOutline(mesh: Mesh) {
+        if(this.gl === null) {
+            console.error("WebGL not supported.");
+            return;
+        }
+        
+        if(this.shaderProgram === null) {
+            console.error("shaderProgram is null.");
+            return;
+        }
+
+        const aPosition = this.gl.getAttribLocation(this.shaderProgram, 'aPosition');
+        const aTexCoord = this.gl.getAttribLocation(this.shaderProgram, 'aTexCoord');
+        const aMultiplicativeColor = this.gl.getAttribLocation(this.shaderProgram, 'aMultiplicativeColor');
+        const aAdditiveColor = this.gl.getAttribLocation(this.shaderProgram, 'aAdditiveColor');
+        const uTranslation = this.gl.getUniformLocation(this.shaderProgram, 'uTranslation');
+        const uScaleLocation = this.gl.getUniformLocation(this.shaderProgram, 'uScale');
+        // Define outline color (e.g., semi-transparent black)
+        const outlineColor = [0.0, 0.0, 0.0, 0.3]; // RGBA
+        // Define number of blur passes
+        const blurPasses = 4;
+        const blurScaleStep = 0.10; // Scale increment per pass
+        for (let i = 1; i <= blurPasses; i++) {
+            // Create buffers for outline
+            const outlinePositionBuffer = this.gl.createBuffer();
+            const outlineIndexBuffer = this.gl.createBuffer();
+            const outlineTexCoordBuffer = this.gl.createBuffer();
+            const outlineMultiplicativeColorBuffer = this.gl.createBuffer();
+            const outlineAdditiveColorBuffer = this.gl.createBuffer();
+            // Prepare outline vertices (scaled up)
+            const outlinePositions: Array<number> = [];
+            const outlineTexCoords: Array<number> = [];
+            const outlineMultiplicativeColors: Array<number> = [];
+            const outlineAdditiveColors: Array<number> = [];
+            mesh.vertex.forEach(vertex => {
+                // Apply additional scaling for outline
+                const scaledX = vertex.pos.x * (1 + blurScaleStep * i);
+                const scaledY = vertex.pos.y * (1 + blurScaleStep * i);
+                // we need to
+                outlinePositions.push(scaledX, scaledY);
+                outlineTexCoords.push(vertex.uv.x, (1 - vertex.uv.y));
+                // Set multiplicative color to the outline color
+                outlineMultiplicativeColors.push(
+                    outlineColor[0],
+                    outlineColor[1],
+                    outlineColor[2],
+                    outlineColor[3]
+                );
+                // No additive color for outline
+                outlineAdditiveColors.push(
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                );
+            });
+            const outlineIndices = mesh.indices;
+            // Bind and upload outline buffers
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlinePositionBuffer);
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlinePositions), this.gl.STATIC_DRAW);
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineTexCoordBuffer);
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineTexCoords), this.gl.STATIC_DRAW);
+            this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
+            this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(outlineIndices), this.gl.STATIC_DRAW);
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineMultiplicativeColorBuffer);
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineMultiplicativeColors), this.gl.STATIC_DRAW);
+            this.gl.enableVertexAttribArray(aMultiplicativeColor);
+            this.gl.vertexAttribPointer(aMultiplicativeColor, 4, this.gl.FLOAT, false, 0, 0);
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineAdditiveColorBuffer);
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(outlineAdditiveColors), this.gl.STATIC_DRAW);
+            this.gl.enableVertexAttribArray(aAdditiveColor);
+            this.gl.vertexAttribPointer(aAdditiveColor, 4, this.gl.FLOAT, false, 0, 0);
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlinePositionBuffer);
+            this.gl.enableVertexAttribArray(aPosition);
+            this.gl.vertexAttribPointer(aPosition, 2, this.gl.FLOAT, false, 0, 0);
+            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, outlineTexCoordBuffer);
+            this.gl.enableVertexAttribArray(aTexCoord);
+            this.gl.vertexAttribPointer(aTexCoord, 2, this.gl.FLOAT, false, 0, 0);
+            this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, outlineIndexBuffer);
+            // Set translation same as original mesh
+            this.gl.uniform2fv(uTranslation, [400, 250]);
+            // Set the scale uniform same as original mesh
+            this.gl.uniform2f(uScaleLocation, this.scale, this.scale);
+            // Set blending for the outline (additive blending for blur effect)
+            this.gl.enable(this.gl.BLEND);
+            this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+            // Draw the outline
+            this.gl.drawElements(this.gl.TRIANGLES, outlineIndices.length, this.gl.UNSIGNED_SHORT, 0);
+            // Re-enable additive color for subsequent meshes
+            this.gl.enableVertexAttribArray(aAdditiveColor);
+            this.gl.vertexAttribPointer(aAdditiveColor, 4, this.gl.FLOAT, false, 0, 0);
+            // Clean up outline buffers
+            this.gl.deleteBuffer(outlinePositionBuffer);
+            this.gl.deleteBuffer(outlineTexCoordBuffer);
+            this.gl.deleteBuffer(outlineIndexBuffer);
+            this.gl.deleteBuffer(outlineMultiplicativeColorBuffer);
+            this.gl.deleteBuffer(outlineAdditiveColorBuffer);
+        }
     }
 }

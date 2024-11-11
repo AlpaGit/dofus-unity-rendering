@@ -17,8 +17,12 @@
 
 body{
   background-size: cover;
-  background-color: #121212;
+  background-color: #492d20;
   color: white;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1{
