@@ -49,6 +49,7 @@ export default class AnimationRenderer {
     webglTexture: WebGLTexture | null = null;
 
     scale: number = 1.0;
+    boundsAnimation: Bounds| null = null;
 
     frameRate: number = 25;
 
@@ -183,6 +184,13 @@ export default class AnimationRenderer {
                 gl.RGBA, gl.UNSIGNED_BYTE, image);
         };
 
+        // Evaluate bounds animation
+        this.boundsAnimation =  this.computeFrame(0);
+        for (let i = 1; i < this.anim.frameCount; i++) {
+            const bounds = this.computeFrame(i);
+            this.boundsAnimation.encapsulate(bounds);
+        }
+        
     }
 
     public Start() {
@@ -488,12 +496,13 @@ export default class AnimationRenderer {
         const multiplicativeColors: number[] = [];
         const additiveColors: number[] = [];
         const indices: number[] = this.triangleIndices;
+        const boundsOffsetY = this.boundsAnimation ? (this.boundsAnimation?.maxY - this.boundsAnimation?.minY) / 2 : 0;
 
         for (let meshKey in this.meshes) {
             const mesh = this.meshes[meshKey];
 
             mesh.vertex.forEach(vertex => {
-                positions.push(vertex.pos.x, vertex.pos.y);
+                positions.push(vertex.pos.x, vertex.pos.y - boundsOffsetY);
                 texCoords.push(vertex.uv.x, this.clamp((1-vertex.uv.y), 0, 1));
 
                 const multiplicativeColor = ColorUtils.ConvertFromEncodedColor(vertex.multiplicativeColor);
