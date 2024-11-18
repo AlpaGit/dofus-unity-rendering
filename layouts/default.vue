@@ -13,7 +13,7 @@
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&display=swap');
 
 body{
   background-size: cover;
